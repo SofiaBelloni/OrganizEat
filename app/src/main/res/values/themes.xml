@@ -1,0 +1,29 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.OrganizEat" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/bluemarine</item>
+        <item name="colorPrimaryVariant">@color/dark_bluemarine</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/bluemarine</item>
+        <item name="colorSecondaryVariant">@color/dark_bluemarine</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="ThemeOverlay.Toolbar" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <!-- Text color and Hint text color -->
+        <item name="editTextColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
+
+    <style name="HintTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/bluemarine</item>
+        <item name="backgroundTint">@color/dark_bluemarine</item>
+    </style>
+
+</resources>

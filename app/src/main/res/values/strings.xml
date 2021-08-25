@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">OrganizEat</string>
+    <string name="search">Search</string>
+    <string name="menu">Menu</string>
+    <string name="image_of_the_recipe">Image of the recipe</string>
+    <string name="recipe_title">Recipe Title</string>
+    <string name="category">Category</string>
+    <string name="add_recipe">Add Recipe</string>
+    <string name="new_recipe_title">Title</string>
+    <string name="recipe_description">Description</string>
+    <string name="add_a_picture">Add a picture</string>
+    <string name="image_added">Image Added</string>
+    <string name="time_for_cooking">Cooking Time</string>
+    <string name="recipe_ingredient">Ingredients</string>
+    <string name="directions">Directions</string>
+    <string name="back">Back</string>
+    <string name="done">Done</string>
+    <string name="edit">Edit</string>
+    <string name="more">More</string>
+    <string name="yield">Yield</string>
+    <string name="add_chart">Add to Shopping List</string>
+    <string name="delete">Delete</string>
+
+    <string-array name="Categorie">
+        <item>Antipasti</item>
+        <item>Primi</item>
+        <item>Secondi</item>
+        <item>Dolci</item>
+    </string-array>
+
+</resources>
