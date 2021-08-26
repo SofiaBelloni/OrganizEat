@@ -26,9 +26,9 @@ import java.util.List;
 public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> implements Filterable {
 
     //list that can be filtered
-    private List<CardItem> cardItemListFiltered;
+    private List <CardItem> cardItemListFiltered = new ArrayList<>();
     //list that contains ALL the element added by the user
-    private List<CardItem> cardItemList;
+    private List <CardItem> cardItemList = new ArrayList<>();
     //I will use it to get the drawable
     private Activity activity;
     //listener attached to the onclick event for the item in tùhe RecyclerView
