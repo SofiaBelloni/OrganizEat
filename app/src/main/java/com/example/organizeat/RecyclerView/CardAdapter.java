@@ -34,11 +34,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> implements
     //listener attached to the onclick event for the item in tùhe RecyclerView
     private OnItemListener listener;
 
-    public CardAdapter(Activity activity, OnItemListener listener, List<CardItem> list) {
+    public CardAdapter(Activity activity, OnItemListener listener) {
         this.activity = activity;
         this.listener = listener;
-        this.cardItemList = new ArrayList<>(list);
-        this.cardItemListFiltered = new ArrayList<>(list);
     }
 
     /**
@@ -139,4 +137,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> implements
             notifyDataSetChanged();
         }
     };
+
+    public void setData(List<CardItem> list){
+        this.cardItemList = new ArrayList<>(list);
+        this.cardItemListFiltered = new ArrayList<>(list);
+        notifyDataSetChanged();
+    }
 }

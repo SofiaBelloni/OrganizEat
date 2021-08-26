@@ -15,14 +15,19 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.organizeat.RecyclerView.CardAdapter;
 import com.example.organizeat.RecyclerView.OnItemListener;
+import com.example.organizeat.ViewModel.ListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.List;
+
 
 public class HomeFragment extends Fragment  implements OnItemListener {
 
@@ -30,6 +35,7 @@ public class HomeFragment extends Fragment  implements OnItemListener {
 
     private  CardAdapter adapter;
     private RecyclerView recyclerView;
+    private ListViewModel listViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +58,10 @@ public class HomeFragment extends Fragment  implements OnItemListener {
             setRecyclerView(activity);
             FloatingActionButton floatingActionButton = view.findViewById((R.id.fab_add));
             floatingActionButton.setOnClickListener(v -> Utilities.insertFragment((AppCompatActivity) activity, new AddFragment(), "AddFragment"));
+
+            this.listViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(ListViewModel.class);
+            //when the list of items changed, the adapter gets the new list.
+            this.listViewModel.getCardItems().observe((LifecycleOwner) activity, cardItems -> adapter.setData(cardItems));
         } else {
             Log.e(LOG, "Activity is null");
         }
@@ -61,6 +71,7 @@ public class HomeFragment extends Fragment  implements OnItemListener {
     public void onItemClick(int position) {
         AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
         if (appCompatActivity != null){
+            this.listViewModel.select(this.listViewModel.getCardItem(position));
             Utilities.insertFragment(appCompatActivity, new DetailsFragment(), DetailsFragment.class.getSimpleName());
         }
 
@@ -102,13 +113,8 @@ public class HomeFragment extends Fragment  implements OnItemListener {
         //Set up the recycler view
         this.recyclerView = activity.findViewById(R.id.recycler_view);
         this.recyclerView.setHasFixedSize(true);
-        List<CardItem> list = new ArrayList<>();
-        list.add(new CardItem("ic_baseline_android_24", "Recipe", "Desc1",
-                "Antipasto", "Ing", "5 ore", "vhvhv", "4 persone"));
-        list.add(new CardItem("ic_baseline_android_24", "Prova", "Desc",
-                "primo", "Ing", "5 ore", "vhvhv", "4 persone"));
         final OnItemListener listener = this;
-        this.adapter = new CardAdapter(activity, listener, list);
+        this.adapter = new CardAdapter(activity, listener);
         this.recyclerView.setAdapter(this.adapter);
     }
 }
