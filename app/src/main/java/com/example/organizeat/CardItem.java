@@ -41,6 +41,17 @@ public class CardItem {
         this.directions = directions;
     }
 
+    public void update(String imageResource, String recipe, String description, String category, String ingredients, String cooking_time, String directions, String yield) {
+        this.imageResource = imageResource;
+        this.recipe = recipe;
+        this.description = description;
+        this.category = category;
+        this.ingredients = ingredients;
+        this.cooking_time = cooking_time;
+        this.yield = yield;
+        this.directions = directions;
+    }
+
     public String getImageResource() {
         return imageResource;
     }

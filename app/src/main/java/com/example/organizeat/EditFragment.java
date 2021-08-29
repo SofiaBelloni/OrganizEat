@@ -7,7 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,15 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
@@ -33,7 +31,9 @@ import com.example.organizeat.ViewModel.ListViewModel;
 
 import java.io.IOException;
 
-public class DetailsFragment extends Fragment {
+import static com.example.organizeat.Utilities.REQUEST_IMAGE_CAPTURE;
+
+public class EditFragment extends Fragment {
 
     private TextView recipe;
     private TextView description;
@@ -42,7 +42,6 @@ public class DetailsFragment extends Fragment {
     private TextView yield;
     private TextView cooking_time;
     private TextView directions;
-
     private ImageView recipeImageView;
 
     @Override
@@ -54,25 +53,30 @@ public class DetailsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.details, container, false);
+        return inflater.inflate(R.layout.add_recipe, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        this.recipe = view.findViewById(R.id.title);
-        this.category = view.findViewById(R.id.category);
-        this.description = view.findViewById(R.id.description);
-        this.cooking_time = view.findViewById(R.id.time);
-        this.yield = view.findViewById(R.id.yield);
-        this.ingredients = view.findViewById(R.id.ingredients);
-        this.directions = view.findViewById(R.id.directions);
-        this.recipeImageView = view.findViewById(R.id.recipe_image);
+        this.recipe = view.findViewById(R.id.recipeTextInputEditText);
+        this.category = view.findViewById(R.id.categoryAutoCompleteTextView);
+        this.description = view.findViewById(R.id.descriptionTextInputEditText);
+        this.cooking_time = view.findViewById(R.id.timeTextInputEditText);
+        this.yield = view.findViewById(R.id.yieldTextInputEditText);
+        this.ingredients = view.findViewById(R.id.ingredientTextInputEditText);
+        this.directions = view.findViewById(R.id.directionsTextInputEditText);
+        this.recipeImageView = view.findViewById(R.id.imageView);
         Activity activity = getActivity();
+
+        view.findViewById(R.id.captureButton).setOnClickListener(v -> {
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if(takePictureIntent.resolveActivity(activity.getPackageManager()) != null)
+                activity.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        });
+        ListViewModel listViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(ListViewModel.class);
         if(activity != null){
             Utilities.setUpToolBar((AppCompatActivity)getActivity());
-
-            ListViewModel listViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(ListViewModel.class);
             listViewModel.getSelected().observe(getViewLifecycleOwner(), cardItem -> {
                 recipe.setText(cardItem.getRecipe());
                 description.setText(cardItem.getDescription());
@@ -97,13 +101,13 @@ public class DetailsFragment extends Fragment {
                 }
             });
         }
+        listViewModel.getBitMap().observe(getViewLifecycleOwner(), bitmap -> this.recipeImageView.setImageBitmap(bitmap));
     }
-
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-
-        inflater.inflate(R.menu.recipe_app_bar, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.new_recipe_top_app_bar, menu);
         menu.findItem(R.id.app_bar_search).setVisible(false);
         menu.findItem(R.id.app_bar_menu).setVisible(false);
     }
@@ -111,39 +115,39 @@ public class DetailsFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.app_bar_share:
-                View view = getView();
-                Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                sendIntent.setType("text/plain");
-                sendIntent.putExtra(Intent.EXTRA_TEXT, recipe.getText().toString()  + "\n" +
-                        description.getText().toString()  + "\n" +
-                        view.getContext().getString(R.string.category) + ": " + category.getText().toString()  + "\n" +
-                        view.getContext().getString(R.string.time_for_cooking) + ": "  + cooking_time.getText().toString()  + "\n" +
-                        view.getContext().getString(R.string.yield) + ": "  + yield.getText().toString() + "\n" +
-                        view.getContext().getString(R.string.recipe_ingredient) + ": "  + ingredients.getText().toString() + "\n" +
-                        view.getContext().getString(R.string.directions) + ": "  + directions.getText().toString() + "\n");
-                if((view.getContext() != null) && (sendIntent.resolveActivity(getContext().getPackageManager()) != null)){
-                    view.getContext().startActivity(Intent.createChooser(sendIntent, null));
-                }
-                return true;
-
             case R.id.app_bar_back:
                 ((AppCompatActivity) getActivity()).getSupportFragmentManager().popBackStack();
                 break;
-
-            case R.id.app_bar_delete:
+            case R.id.app_bar_done:
+                View view = getView();
                 ListViewModel listViewModel = new ViewModelProvider((ViewModelStoreOwner) getActivity()).get(ListViewModel.class);
-                listViewModel.deleteSelected();
-                ((AppCompatActivity) getActivity()).getSupportFragmentManager().popBackStack();
-                break;
+                try {
+                    Bitmap bitmap = listViewModel.getBitMap().getValue();
+                    String imageUriString;
+                    if( bitmap != null){
+                        //Method to save the image in device's gallery
+                        imageUriString = String.valueOf(Utilities.saveImage(bitmap, getActivity()));
+                        //Toast.makeText(getActivity(), "Image Saved", Toast.LENGTH_SHORT);
+                    }else {
+                        imageUriString = "ic_launcher_foreground";
+                    }
 
-            case R.id.app_bar_edit:
-                Utilities.insertFragment((AppCompatActivity)getActivity(), new EditFragment(), "EditFragment");
-                break;
+                    listViewModel.updateSelected(imageUriString, this.recipe.getText().toString(), this.description.getText().toString(),
+                            "", this.ingredients.getText().toString(), this.cooking_time.getText().toString(),
+                            this.directions.getText().toString(), this.yield.getText().toString());
 
+                    listViewModel.setBitMap(null);
+                    //back to the previous fragment (Home)
+                    ((AppCompatActivity) getActivity()).getSupportFragmentManager().popBackStack();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

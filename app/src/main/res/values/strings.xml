@@ -21,6 +21,7 @@
     <string name="add_chart">Add to Shopping List</string>
     <string name="delete">Delete</string>
     <string name="share">Share</string>
+    <string name="recipe_delete">Recipe deleted</string>
 
     <string-array name="Categorie">
         <item>Antipasti</item>

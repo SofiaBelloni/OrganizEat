@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -72,6 +73,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
+                android:layout_marginTop="30dp"
                 android:layout_margin="10dp"
                 android:contentDescription="@string/image_added"
                 android:src="@drawable/ic_baseline_android_24"
@@ -81,30 +83,32 @@
                 app:layout_constraintTop_toBottomOf="@+id/captureButton"
                 />
 
-         <!--   <com.google.android.material.textfield.TextInputLayout
-                xmlns:android="https://material.io/components/text-fields/android#using-text-fields"
-                style="@style/Widget.MaterialComponents.TextInputLayout.*.ExposedDropdownMenu"
+              <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                 android:id="@+id/categoryTextInputLayout"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/category"
+                android:layout_margin="10dp"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:hintTextAppearance="@style/HintTextAppearance"
                 app:placeholderText="@string/category"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView">
 
                 <AutoCompleteTextView
+                    android:id="@+id/categoryAutoCompleteTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none" />
-
-            </com.google.android.material.textfield.TextInputLayout> -->
+                    android:inputType="none"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/timeTextInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_margin="10dp"
                 android:hint="@string/time_for_cooking"
                 app:hintTextAppearance="@style/HintTextAppearance"
@@ -112,7 +116,7 @@
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView">
+                app:layout_constraintTop_toBottomOf="@+id/categoryTextInputLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"

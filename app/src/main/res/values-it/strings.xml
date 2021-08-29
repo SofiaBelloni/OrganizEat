@@ -19,4 +19,8 @@
     <string name="edit">Modifica</string>
     <string name="more">Altro</string>
     <string name="yield">Porzioni</string>
+    <string name="add_chart">Aggiungi alla lista della spesa</string>
+    <string name="delete">Elimina</string>
+    <string name="share">Condividi</string>
+    <string name="recipe_delete">Ricetta eliminata</string>
 </resources>

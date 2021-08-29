@@ -2,10 +2,12 @@ package com.example.organizeat.DataBase;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
 import com.example.organizeat.CardItem;
 
@@ -21,4 +23,10 @@ public interface CardItemDAO {
     @Transaction
     @Query("SELECT * from recipe ORDER BY ID DESC")
     LiveData<List<CardItem>> getCardItems();
+
+    @Update
+    void updateCardItem(CardItem CardItem);
+
+    @Delete
+    void deleteCardItem(CardItem CardItem);
 }
