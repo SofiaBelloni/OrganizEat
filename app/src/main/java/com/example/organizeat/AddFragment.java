@@ -102,7 +102,7 @@ public class AddFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.new_recipe_top_app_bar, menu);
         menu.findItem(R.id.app_bar_search).setVisible(false);
-        menu.findItem(R.id.app_bar_menu).setVisible(false);
+        menu.findItem(R.id.app_bar_filter).setVisible(false);
     }
 
     @Override

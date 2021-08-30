@@ -14,7 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -25,6 +28,7 @@ import com.example.organizeat.RecyclerView.CardAdapter;
 import com.example.organizeat.RecyclerView.OnItemListener;
 import com.example.organizeat.ViewModel.ListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
@@ -53,7 +57,7 @@ public class HomeFragment extends Fragment  implements OnItemListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final Activity activity = getActivity();
-        if (activity!=null){
+         if (activity!=null){
             Utilities.setUpToolBar((AppCompatActivity)getActivity());
             setRecyclerView(activity);
             FloatingActionButton floatingActionButton = view.findViewById((R.id.fab_add));
@@ -66,6 +70,7 @@ public class HomeFragment extends Fragment  implements OnItemListener {
             Log.e(LOG, "Activity is null");
         }
     }
+
 
     @Override
     public void onItemClick(int position) {
@@ -117,4 +122,5 @@ public class HomeFragment extends Fragment  implements OnItemListener {
         this.adapter = new CardAdapter(activity, listener);
         this.recyclerView.setAdapter(this.adapter);
     }
+
 }

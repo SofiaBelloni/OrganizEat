@@ -105,7 +105,7 @@ public class DetailsFragment extends Fragment {
 
         inflater.inflate(R.menu.recipe_app_bar, menu);
         menu.findItem(R.id.app_bar_search).setVisible(false);
-        menu.findItem(R.id.app_bar_menu).setVisible(false);
+        menu.findItem(R.id.app_bar_filter).setVisible(false);
     }
 
     @Override
