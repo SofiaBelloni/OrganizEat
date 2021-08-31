@@ -74,7 +74,7 @@ public class AddFragment extends Fragment {
         textView.setAdapter(adapter);
         final Activity activity = getActivity();
         if(activity!=null){
-            Utilities.setUpToolBar((AppCompatActivity)activity);
+            Utilities.setUpToolBar((AppCompatActivity)activity, view.getContext().getString(R.string.new_recipe));
         }
 
         view.findViewById(R.id.captureButton).setOnClickListener(v -> {

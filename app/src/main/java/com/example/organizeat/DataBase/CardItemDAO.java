@@ -10,7 +10,6 @@ import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.example.organizeat.CardItem;
-
 import java.util.List;
 
 @Dao

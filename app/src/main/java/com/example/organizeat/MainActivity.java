@@ -3,18 +3,16 @@ package com.example.organizeat;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import androidx.appcompat.widget.Toolbar;
 
 import com.example.organizeat.ViewModel.AddViewModel;
 import com.google.android.material.navigation.NavigationView;
@@ -29,9 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawer;
     private NavigationView nvDrawer;
 
-    // Make sure to be using androidx.appcompat.app.ActionBarDrawerToggle version.
-    private ActionBarDrawerToggle drawerToggle;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         // This will display an Up icon (<-), we will replace it with hamburger later
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_menu_24);
         // Find our drawer view
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         // Find our drawer view
@@ -108,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 Utilities.insertFragment(this, new AddFragment(), "AddFragment");
                 break;
             case R.id.nav_settings:
-                Utilities.insertFragment(this, new AddFragment(), "AddFragment");
+                Utilities.insertFragment(this, new SettingsFragment(), "SettingsFragment");
                 break;
             default:
                 Utilities.insertFragment(this, new HomeFragment(), "HomeFragment");

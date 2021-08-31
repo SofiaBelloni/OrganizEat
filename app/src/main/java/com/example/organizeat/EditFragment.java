@@ -76,7 +76,7 @@ public class EditFragment extends Fragment {
         });
         ListViewModel listViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(ListViewModel.class);
         if(activity != null){
-            Utilities.setUpToolBar((AppCompatActivity)getActivity());
+            Utilities.setUpToolBar((AppCompatActivity)getActivity(), view.getContext().getString(R.string.edit));
             listViewModel.getSelected().observe(getViewLifecycleOwner(), cardItem -> {
                 recipe.setText(cardItem.getRecipe());
                 description.setText(cardItem.getDescription());

@@ -70,7 +70,7 @@ public class DetailsFragment extends Fragment {
         this.recipeImageView = view.findViewById(R.id.recipe_image);
         Activity activity = getActivity();
         if(activity != null){
-            Utilities.setUpToolBar((AppCompatActivity)getActivity());
+            Utilities.setUpToolBar((AppCompatActivity)getActivity(), "");
 
             ListViewModel listViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(ListViewModel.class);
             listViewModel.getSelected().observe(getViewLifecycleOwner(), cardItem -> {

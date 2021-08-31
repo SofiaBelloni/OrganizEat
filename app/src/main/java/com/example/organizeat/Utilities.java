@@ -40,8 +40,9 @@ public class Utilities {
         transaction.commit();
     }
 
-    static void setUpToolBar(AppCompatActivity activity){
+    static void setUpToolBar(AppCompatActivity activity, String title){
         Toolbar toolbar = activity.findViewById(R.id.toolbar);
+        toolbar.setTitle(title);
         if(activity.getSupportActionBar() == null){
             //Set a Toolbar to act as the ActionBar for the activity
             activity.setSupportActionBar(toolbar);
