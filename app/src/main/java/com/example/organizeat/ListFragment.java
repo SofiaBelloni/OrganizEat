@@ -121,9 +121,6 @@ public class ListFragment extends Fragment {
                 }
                 return true;
 
-            case R.id.app_bar_back:
-                ((AppCompatActivity) getActivity()).getSupportFragmentManager().popBackStack();
-                break;
             default:
                 break;
         }

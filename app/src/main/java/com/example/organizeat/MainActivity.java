@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 Utilities.insertFragment(this, new ListFragment(), "ListFragment");
                 break;
             case R.id.nav_add_category:
-                Utilities.insertFragment(this, new AddFragment(), "AddFragment");
+                Utilities.insertFragment(this, new CategoryFragment(), "CategoryFragment");
                 break;
             case R.id.nav_settings:
                 Utilities.insertFragment(this, new SettingsFragment(), "SettingsFragment");
