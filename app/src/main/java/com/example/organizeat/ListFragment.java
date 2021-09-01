@@ -1,7 +1,9 @@
 package com.example.organizeat;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,18 +17,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.example.organizeat.ViewModel.ShoppingListViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListFragment extends Fragment {
 
     static ListView listView;
     static ListViewAdapter adapter;
-    static ArrayList<String> items;
+    static List<ListItem> items = new ArrayList<>();
     static Context context;
     private ShoppingListViewModel listViewModel;
+    static Activity activity;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,15 +54,13 @@ public class ListFragment extends Fragment {
         EditText input = view.findViewById(R.id.input);
 
         if(getActivity()!=null){
+            activity = getActivity();
             Utilities.setUpToolBar((AppCompatActivity)getActivity(), view.getContext().getString(R.string.list));
             context = getActivity().getApplicationContext();
-            //this.listViewModel = new ViewModelProvider((ViewModelStoreOwner)getActivity()).get(ShoppingListViewModel.class);
+            this.listViewModel = new ViewModelProvider((ViewModelStoreOwner)getActivity()).get(ShoppingListViewModel.class);
         }
 
-
-        items = new ArrayList<>();
-        items.add("Apple");
-
+        items = new ArrayList<>(listViewModel.getListItems());
         adapter = new ListViewAdapter(context, items);
         listView.setAdapter(adapter);
 
@@ -80,13 +85,18 @@ public class ListFragment extends Fragment {
 
     // function to add an item given its name.
     private void addItem(String item) {
-        items.add(item);
+        ListItem listItem = new ListItem(item);
+        listViewModel = new ViewModelProvider((ViewModelStoreOwner)getActivity()).get(ShoppingListViewModel.class);
+        listViewModel.addListItem(listItem);
+        items.add(listItem);
         listView.setAdapter(adapter);
     }
 
     // function to remove an item given its index in the grocery list.
     public static void removeItem(int i) {
         Toast.makeText(context,"Removed " + items.get(i), Toast.LENGTH_SHORT).show();
+        ShoppingListViewModel listViewModel = new ViewModelProvider((ViewModelStoreOwner)activity).get(ShoppingListViewModel.class);
+        listViewModel.deleteListItem(items.get(i));
         items.remove(i);
         listView.setAdapter(adapter);
     }

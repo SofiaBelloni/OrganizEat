@@ -1,6 +1,4 @@
 package com.example.organizeat.DataBase;
-
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -21,8 +19,8 @@ public interface ListItemDAO {
 
     @Transaction
     @Query("SELECT * from shoppinglist ORDER BY ID DESC")
-    LiveData<List<ListItem>> getListItems();
+    List<ListItem> getListItems();
 
     @Delete
-    void deleteCardItem(ListItem CardItem);
+    void deleteListItem(ListItem listItem);
 }

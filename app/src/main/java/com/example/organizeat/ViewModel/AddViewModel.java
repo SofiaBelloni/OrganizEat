@@ -29,6 +29,4 @@ public class AddViewModel extends AndroidViewModel {
 
     public void addCardItem(CardItem item){ this.repository.addCardItem(item);}
 
-    public void updateCardItem(CardItem item){ this.repository.updateCardItem(item);}
-
 }

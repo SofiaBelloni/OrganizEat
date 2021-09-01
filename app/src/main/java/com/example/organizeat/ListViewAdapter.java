@@ -12,15 +12,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 
-class ListViewAdapter extends ArrayAdapter<String> {
-    ArrayList<String> list;
+class ListViewAdapter extends ArrayAdapter<ListItem> {
+    List<ListItem> list;
     Context context;
 
     // The ListViewAdapter Constructor
     // @param context: the Context from the MainActivity
     // @param items: The list of items in our Grocery List
-    public ListViewAdapter(Context context, ArrayList<String> items) {
+    public ListViewAdapter(Context context,  List<ListItem> items) {
         super(context, R.layout.list_row, items);
         this.context = context;
         this.list = items;
@@ -34,8 +35,7 @@ class ListViewAdapter extends ArrayAdapter<String> {
             LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.list_row, null);
             TextView item = convertView.findViewById(R.id.item_name);
-            item.setText(this.list.get(position));
-
+            item.setText(this.list.get(position).getItem());
             convertView.findViewById(R.id.remove).setOnClickListener(view -> ListFragment.removeItem(position));
         }
         return convertView;
