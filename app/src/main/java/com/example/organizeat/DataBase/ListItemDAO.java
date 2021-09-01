@@ -7,26 +7,22 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
-import androidx.room.Update;
 
-import com.example.organizeat.CardItem;
+import com.example.organizeat.ListItem;
 
 import java.util.List;
 
 @Dao
-public interface CardItemDAO {
+public interface ListItemDAO {
     // The selected on conflict strategy ignores a new CardItem
     // if it's exactly the same as one already in the list.
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void addCardItem(CardItem CardItem);
+    void addListItem(ListItem listItem);
 
     @Transaction
-    @Query("SELECT * from recipe ORDER BY ID DESC")
-    LiveData<List<CardItem>> getCardItems();
-
-    @Update
-    void updateCardItem(CardItem CardItem);
+    @Query("SELECT * from shoppinglist ORDER BY ID DESC")
+    LiveData<List<ListItem>> getListItems();
 
     @Delete
-    void deleteCardItem(CardItem CardItem);
+    void deleteCardItem(ListItem CardItem);
 }

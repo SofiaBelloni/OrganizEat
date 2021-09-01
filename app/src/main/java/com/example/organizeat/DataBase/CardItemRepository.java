@@ -13,7 +13,7 @@ public class CardItemRepository {
     private LiveData<List<CardItem>> cardItemList;
 
     public CardItemRepository(Application application) {
-        CardItemDatabase db = CardItemDatabase.getDatabase(application);
+        OrganizEatDatabase db = OrganizEatDatabase.getDatabase(application);
         cardItemDAO = db.cardItemDAO();
         cardItemList = cardItemDAO.getCardItems();
     }
@@ -27,7 +27,7 @@ public class CardItemRepository {
     // You must call this on a non-UI thread or your app will throw an exception. Room ensures
     // that you're not doing any long running operations on the main thread, blocking the UI.
     public void addCardItem(final CardItem CardItem) {
-        CardItemDatabase.databaseWriteExecutor.execute(new Runnable() {
+        OrganizEatDatabase.databaseWriteExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 cardItemDAO.addCardItem(CardItem);
@@ -36,7 +36,7 @@ public class CardItemRepository {
     }
 
     public void updateCardItem(final CardItem CardItem) {
-        CardItemDatabase.databaseWriteExecutor.execute(new Runnable() {
+        OrganizEatDatabase.databaseWriteExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 cardItemDAO.updateCardItem(CardItem);
@@ -45,7 +45,7 @@ public class CardItemRepository {
     }
 
     public void deleteCardItem(final CardItem CardItem) {
-        CardItemDatabase.databaseWriteExecutor.execute(new Runnable() {
+        OrganizEatDatabase.databaseWriteExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 cardItemDAO.deleteCardItem(CardItem);

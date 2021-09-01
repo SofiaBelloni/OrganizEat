@@ -1,27 +1,20 @@
 package com.example.organizeat;
 
 import android.app.Activity;
-import android.app.Application;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,16 +23,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
-import com.example.organizeat.DataBase.CardItemRepository;
 import com.example.organizeat.ViewModel.AddViewModel;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import static com.example.organizeat.Utilities.REQUEST_IMAGE_CAPTURE;
 
@@ -131,7 +119,7 @@ public class AddFragment extends Fragment {
                 e.printStackTrace();
             }
         }
-        if(item.getItemId()==R.id.app_bar_back){
+        if(item.getItemId()== R.id.app_bar_back){
             ((AppCompatActivity) getActivity()).getSupportFragmentManager().popBackStack();
         }
         return super.onOptionsItemSelected(item);

@@ -1,18 +1,18 @@
 package com.example.organizeat;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.example.organizeat.ViewModel.AddViewModel;
 import com.google.android.material.navigation.NavigationView;
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 Utilities.insertFragment( this, new HomeFragment(), "HomeFragment");
                 break;
             case R.id.nav_shopping_list:
-                Utilities.insertFragment(this, new AddFragment(), "AddFragment");
+                Utilities.insertFragment(this, new ListFragment(), "ListFragment");
                 break;
             case R.id.nav_add_category:
                 Utilities.insertFragment(this, new AddFragment(), "AddFragment");

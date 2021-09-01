@@ -11,7 +11,6 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.organizeat.CardItem;
 import com.example.organizeat.DataBase.CardItemRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListViewModel extends AndroidViewModel {

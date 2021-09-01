@@ -7,27 +7,30 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.organizeat.CardItem;
+import com.example.organizeat.ListItem;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {CardItem.class}, version = 1)
-public abstract class CardItemDatabase extends RoomDatabase {
+@Database(entities = {CardItem.class, ListItem.class}, version = 1)
+public abstract class OrganizEatDatabase extends RoomDatabase {
 
     public abstract CardItemDAO cardItemDAO();
+    public abstract ListItemDAO listItemDAO();
 
-    private static volatile CardItemDatabase INSTANCE;
+    private static volatile OrganizEatDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
 
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    static CardItemDatabase getDatabase(final Context context) {
+    static OrganizEatDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
-            synchronized (CardItemDatabase.class) {
+            synchronized (OrganizEatDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            CardItemDatabase.class, "word_database")
+                            OrganizEatDatabase.class, "organizeat_database")
+                            .allowMainThreadQueries()
                             .build();
                 }
             }

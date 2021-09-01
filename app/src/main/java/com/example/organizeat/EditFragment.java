@@ -22,11 +22,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
-import com.example.organizeat.ViewModel.AddViewModel;
 import com.example.organizeat.ViewModel.ListViewModel;
 
 import java.io.IOException;

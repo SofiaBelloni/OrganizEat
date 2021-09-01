@@ -3,7 +3,6 @@ package com.example.organizeat;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,16 +13,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
-
-import java.io.IOException;
 
 public class SettingsFragment extends Fragment {
 
@@ -71,7 +65,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.settings_app_bar, menu);
+        inflater.inflate(R.menu.simple_app_bar, menu);
 
         menu.findItem(R.id.app_bar_search).setVisible(false);
         menu.findItem(R.id.app_bar_filter).setVisible(false);
