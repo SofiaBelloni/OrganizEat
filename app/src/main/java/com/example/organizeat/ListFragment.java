@@ -2,11 +2,13 @@ package com.example.organizeat;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -21,6 +23,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
+import com.example.organizeat.ViewModel.ListViewModel;
 import com.example.organizeat.ViewModel.ShoppingListViewModel;
 
 import java.util.ArrayList;
@@ -78,7 +81,7 @@ public class ListFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.simple_app_bar, menu);
+        inflater.inflate(R.menu.share_app_bar, menu);
         menu.findItem(R.id.app_bar_search).setVisible(false);
         menu.findItem(R.id.app_bar_filter).setVisible(false);
     }
@@ -99,5 +102,31 @@ public class ListFragment extends Fragment {
         listViewModel.deleteListItem(items.get(i));
         items.remove(i);
         listView.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.app_bar_share:
+                View view = getView();
+                Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                sendIntent.setType("text/plain");
+                String text = "";
+                for (ListItem element : items) {
+                    text = text.concat("\n"+ element.getItem());
+                }
+                sendIntent.putExtra(Intent.EXTRA_TEXT, text);
+                if((view.getContext() != null) && (sendIntent.resolveActivity(getContext().getPackageManager()) != null)){
+                    view.getContext().startActivity(Intent.createChooser(sendIntent, null));
+                }
+                return true;
+
+            case R.id.app_bar_back:
+                ((AppCompatActivity) getActivity()).getSupportFragmentManager().popBackStack();
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
