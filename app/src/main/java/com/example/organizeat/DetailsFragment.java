@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.example.organizeat.ViewModel.ListViewModel;
+import com.example.organizeat.ViewModel.ShoppingListViewModel;
 
 public class DetailsFragment extends Fragment {
 
@@ -133,10 +135,30 @@ public class DetailsFragment extends Fragment {
             case R.id.app_bar_edit:
                 Utilities.insertFragment((AppCompatActivity)getActivity(), new EditFragment(), "EditFragment");
                 break;
-
+            case R.id.app_bar_add_chart:
+                String string = this.ingredients.getText().toString();
+                String[] parts = {};
+                if (string.contains("\n")) {
+                    parts = string.split("\n");
+                }
+                ShoppingListViewModel shoppingListViewModel = new ViewModelProvider((ViewModelStoreOwner)getActivity()).get(ShoppingListViewModel.class);
+                if (parts.length>0){
+                    for(String part: parts)
+                        shoppingListViewModel.addListItem(new ListItem(part));
+                } else if(string.length()>0) {
+                    shoppingListViewModel.addListItem(new ListItem(string));
+                }
+                Toast.makeText(getActivity(),"Ingredients added to list", Toast.LENGTH_SHORT).show();
+                break;
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void splitString(String string){
+        if (string.contains("\n")) {
+            String[] parts = string.split("\n");
+        }
     }
 }
