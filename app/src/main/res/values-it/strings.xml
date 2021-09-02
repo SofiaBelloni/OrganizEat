@@ -4,4 +4,7 @@
     <string name="profile">Profilo</string>
     <string name="name">Nome</string>
     <string name="goals">Obiettivi</string>
+    <string name="username">Nome utente</string>
+    <string name="menage_category">Gestisci categorie</string>
+    <string name="new_product">Nuovo prodotto</string>
 </resources>

@@ -77,31 +77,26 @@ public class CategoryFragment extends Fragment {
                                 //set custome view to dialog
                                 builder.setView(v);
 
-                                builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                                builder.setPositiveButton(view.getContext().getString(R.string.edit), new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         if (!editText.getText().toString().isEmpty()) {
                                             list.set(position, editText.getText().toString().trim());
                                             arrayAdapter.notifyDataSetChanged();
-                                            Toast.makeText(getActivity(), "Item Updated!", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getActivity(), view.getContext().getString(R.string.edit_category), Toast.LENGTH_SHORT).show();
                                         } else {
                                             editText.setError("add item here !");
                                         }
                                     }
                                 });
 
-                                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
+                                builder.setNegativeButton(view.getContext().getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
                                 builder.show();
                                 break;
 
                             case R.id.item_del:
                                 //fucntion for del
-                                Toast.makeText(getActivity(), "Item Deleted", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), view.getContext().getString(R.string.category_deleted), Toast.LENGTH_SHORT).show();
                                 list.remove(position);
                                 arrayAdapter.notifyDataSetChanged();
                                 break;
@@ -143,13 +138,13 @@ public class CategoryFragment extends Fragment {
     private void addItem() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Add New Item");
+        builder.setTitle(getView().getContext().getString(R.string.add_category));
 
         View v = LayoutInflater.from(getActivity()).inflate(R.layout.category_dialog, null, false);
 
         builder.setView(v);
         final EditText etItem = v.findViewById(R.id.etItem);
-        builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getView().getContext().getString(R.string.add), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (!etItem.getText().toString().isEmpty()) {
@@ -162,12 +157,7 @@ public class CategoryFragment extends Fragment {
             }
         });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        builder.setNegativeButton(getView().getContext().getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
         builder.show();
     }
 }
