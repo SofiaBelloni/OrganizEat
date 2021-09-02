@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
+import com.example.organizeat.ViewModel.CategoryViewModel;
 import com.example.organizeat.ViewModel.ShoppingListViewModel;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class CategoryFragment extends Fragment {
     ArrayList<String> list = new ArrayList<>();
     ListView list_view;
     ArrayAdapter arrayAdapter;
+    private CategoryViewModel categoryViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,13 +50,16 @@ public class CategoryFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        list_view = view.findViewById(R.id.list_view);
-        arrayAdapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, list);
-        list_view.setAdapter(arrayAdapter);
+        this.list_view = view.findViewById(R.id.list_view);
+
         if(getActivity()!=null){
             Utilities.setUpToolBar((AppCompatActivity)getActivity(), view.getContext().getString(R.string.menage_category));
+            this.categoryViewModel =  new ViewModelProvider((ViewModelStoreOwner)getActivity()).get(CategoryViewModel.class);
+            this.list = new ArrayList<>(this.categoryViewModel.getCategoriesName());
         }
-        list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        this.arrayAdapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, list);
+        this.list_view.setAdapter(this.arrayAdapter);
+        this.list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
@@ -81,7 +86,10 @@ public class CategoryFragment extends Fragment {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         if (!editText.getText().toString().isEmpty()) {
-                                            list.set(position, editText.getText().toString().trim());
+                                            Category cat = categoryViewModel.getCategories().get(position);
+                                            cat.setCategory(editText.getText().toString());
+                                            list.set(position, editText.getText().toString());
+                                            categoryViewModel.updateCategory(cat);
                                             arrayAdapter.notifyDataSetChanged();
                                             Toast.makeText(getActivity(), view.getContext().getString(R.string.edit_category), Toast.LENGTH_SHORT).show();
                                         } else {
@@ -97,6 +105,7 @@ public class CategoryFragment extends Fragment {
                             case R.id.item_del:
                                 //fucntion for del
                                 Toast.makeText(getActivity(), view.getContext().getString(R.string.category_deleted), Toast.LENGTH_SHORT).show();
+                                categoryViewModel.deleteCategory(categoryViewModel.getCategories().get(position));
                                 list.remove(position);
                                 arrayAdapter.notifyDataSetChanged();
                                 break;
@@ -148,7 +157,9 @@ public class CategoryFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (!etItem.getText().toString().isEmpty()) {
-                    list.add(etItem.getText().toString().trim());
+                    Category newCat = new Category(etItem.getText().toString());
+                    categoryViewModel.addCategory(newCat);
+                    list.add(0, newCat.getCategory());
                     arrayAdapter.notifyDataSetChanged();
 
                 } else {
