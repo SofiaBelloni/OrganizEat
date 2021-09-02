@@ -98,6 +98,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> implements
     }
 
     private final Filter cardFilter = new Filter() {
+
         /**
          * Called to filter the data according to the constraint
          * @param constraint constraint used to filtered the data
@@ -115,6 +116,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> implements
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
                 for (CardItem item : cardItemListFiltered) {
+                    if(isNumeric(constraint.toString()) && item.getCategory() == Integer.parseInt(constraint.toString())){
+                        filteredList.add(item);
+                    }
                     if (item.getRecipe().toLowerCase().contains(filterPattern)) {
                         filteredList.add(item);
                     }
@@ -150,5 +154,18 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> implements
         this.cardItemList = new ArrayList<>(list);
         this.cardItemListFiltered = new ArrayList<>(list);
         notifyDataSetChanged();
+    }
+
+    private boolean isNumeric(String string) {
+        if(string == null || string.equals("")) {
+            return false;
+        }
+
+        try {
+            int intValue = Integer.parseInt(string);
+            return true;
+        } catch (NumberFormatException e) {
+        }
+        return false;
     }
 }

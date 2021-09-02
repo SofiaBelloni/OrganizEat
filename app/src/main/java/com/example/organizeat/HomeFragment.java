@@ -1,6 +1,8 @@
 package com.example.organizeat;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,10 +11,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
@@ -22,8 +32,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.organizeat.RecyclerView.CardAdapter;
 import com.example.organizeat.RecyclerView.OnItemListener;
+import com.example.organizeat.ViewModel.CategoryViewModel;
 import com.example.organizeat.ViewModel.ListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class HomeFragment extends Fragment  implements OnItemListener {
@@ -33,6 +47,7 @@ public class HomeFragment extends Fragment  implements OnItemListener {
     private  CardAdapter adapter;
     private RecyclerView recyclerView;
     private ListViewModel listViewModel;
+    private int id;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -116,4 +131,47 @@ public class HomeFragment extends Fragment  implements OnItemListener {
         this.recyclerView.setAdapter(this.adapter);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.app_bar_filter){
+            create_filter_dialog();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void create_filter_dialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(getView().getContext().getString(R.string.filter_title));
+        CategoryViewModel categoryViewModel = new ViewModelProvider((ViewModelStoreOwner)getActivity()).get(CategoryViewModel.class);
+        View v = LayoutInflater.from(getActivity()).inflate(R.layout.filter_dialog, null, false);
+        Spinner spinner = v.findViewById(R.id.filter_spinner);;
+        builder.setView(v);
+        List<String> list = new ArrayList<>(categoryViewModel.getCategoriesName());
+        List<Category> categories = new ArrayList<>(categoryViewModel.getCategories());
+        ArrayAdapter adapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, categories);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        builder.setPositiveButton(getView().getContext().getString(R.string.filter), (dialog, which) -> {
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    id = categories.get(position).getId();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    id = categories.get(categories.size()-1).getId();
+                }
+            });
+
+            adapter.getFilter().filter(String.valueOf(id));
+        });
+
+        builder.setNegativeButton(getView().getContext().getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
+        builder.show();
+    }
 }

@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
+    <TextView
         android:id="@+id/item_update"
         android:title="@string/edit" />
+
+    <Spinner
+        android:id="@+id/filter_spinner"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
+        android:layout_height="40dp" />
 
 </menu>
