@@ -11,9 +11,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,8 +26,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.example.organizeat.ViewModel.AddViewModel;
+import com.example.organizeat.ViewModel.CategoryViewModel;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,11 +39,12 @@ public class AddFragment extends Fragment {
 
     private TextView recipe;
     private TextView description;
-    private TextView category;
+    private Spinner category_spinner;
     private TextView ingredients;
     private TextView yield;
     private TextView cooking_time;
     private TextView directions;
+    private int category_id;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,10 +61,6 @@ public class AddFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        List<String> items = Arrays.asList("Antipasto", "Primo", "Secondo", "Dolce");
-        ArrayAdapter adapter = new ArrayAdapter(requireContext(), R.layout.list_item, items);
-        AutoCompleteTextView textView = (AutoCompleteTextView)view.findViewById(R.id.categoryAutoCompleteTextView);
-        textView.setAdapter(adapter);
         final Activity activity = getActivity();
         if(activity!=null){
             Utilities.setUpToolBar((AppCompatActivity)activity, view.getContext().getString(R.string.new_recipe));
@@ -77,11 +78,39 @@ public class AddFragment extends Fragment {
 
         this.recipe = view.findViewById(R.id.recipeTextInputEditText);
         this.description = view.findViewById(R.id.descriptionTextInputEditText);
-        //this.category = view.findViewById(R.id.category);
+        this.category_spinner = view.findViewById(R.id.category_spinner);
         this.cooking_time = view.findViewById(R.id.timeTextInputEditText);
         this.yield = view.findViewById(R.id.yieldTextInputEditText);
         this.ingredients = view.findViewById(R.id.ingredientTextInputEditText);
         this.directions = view.findViewById(R.id.directionsTextInputEditText);
+
+        CategoryViewModel categoryViewModel =  new ViewModelProvider((ViewModelStoreOwner)getActivity()).get(CategoryViewModel.class);
+        List<String> list = new ArrayList<>(categoryViewModel.getCategoriesName());
+        if(list.isEmpty()){
+            categoryViewModel.addCategory(new Category(view.getResources().getString(R.string.default_category)));
+            list = new ArrayList<>(categoryViewModel.getCategoriesName());
+        }
+        List<Category> listCategory = new ArrayList<>(categoryViewModel.getCategories());
+        category_id = listCategory.get(0).getId();
+        //create an ArrayAdaptar from the String Array
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(activity.getApplicationContext(), android.R.layout.simple_spinner_item, list);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        category_spinner.setAdapter(adapter);
+        category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                category_id = listCategory.get(position).getId();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //do nothing
+            }
+        });
+
 
     }
 
@@ -109,7 +138,7 @@ public class AddFragment extends Fragment {
                 }
 
                 addViewModel.addCardItem(new CardItem(imageUriString, this.recipe.getText().toString(), this.description.getText().toString(),
-                        "", this.ingredients.getText().toString(), this.cooking_time.getText().toString(),
+                        category_id, this.ingredients.getText().toString(), this.cooking_time.getText().toString(),
                         this.directions.getText().toString(), this.yield.getText().toString()));
                 addViewModel.setBitMap(null);
                 //back to the previous fragment (Home)

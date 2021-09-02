@@ -13,7 +13,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/titleTextInputLayout"
@@ -29,10 +29,10 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/recipeTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/recipeTextInputEditText"
-                    android:imeOptions="flagNoExtractUi"/>
+                    android:imeOptions="flagNoExtractUi" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -41,27 +41,26 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:hint="@string/recipe_description"
-                app:hintTextAppearance="@style/HintTextAppearance"
                 app:endIconMode="clear_text"
                 app:errorEnabled="true"
+                app:hintTextAppearance="@style/HintTextAppearance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/titleTextInputLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/descriptionTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/descriptionTextInputEditText"
-                    android:imeOptions="flagNoExtractUi"
-                    />
+                    android:imeOptions="flagNoExtractUi" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:layout_margin="10dp"
                 android:id="@+id/captureButton"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:text="@string/add_a_picture"
                 app:icon="@drawable/ic_baseline_photo_camera_24"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -72,37 +71,48 @@
                 android:id="@+id/imageView"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
-                android:layout_marginTop="30dp"
                 android:layout_margin="10dp"
+                android:layout_marginTop="30dp"
+                android:background="@color/dark_bluemarine"
                 android:contentDescription="@string/image_added"
                 android:src="@drawable/ic_baseline_android_24"
-                android:background="@color/dark_bluemarine"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/captureButton"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/captureButton" />
 
-              <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-                android:id="@+id/categoryTextInputLayout"
+            <GridLayout
+                android:id="@+id/GridLayout"
+                android:layout_margin="15dp"
+                android:layout_marginBottom="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/category"
-                android:layout_margin="10dp"
-                app:endIconMode="clear_text"
-                app:errorEnabled="true"
-                app:hintTextAppearance="@style/HintTextAppearance"
-                app:placeholderText="@string/category"
+                android:columnCount="2"
+                android:orientation="horizontal"
+                android:rowCount="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView">
 
-                <AutoCompleteTextView
-                    android:id="@+id/categoryAutoCompleteTextView"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/categoryTextInputLayout"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="none"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:hint="@string/category"
+                    android:fontFamily="Roboto"
+                    android:layout_marginEnd="15dp"
+                    android:textColorHint="@color/black"
+                    android:textStyle="normal"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/black"
+                    app:placeholderText="@string/category" />
+
+                <Spinner
+                    android:id="@+id/category_spinner"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
+                    android:background="#e0e0e0"
+                    android:layout_height="50dp"
+                    android:layout_width="match_parent" />
+            </GridLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/timeTextInputLayout"
@@ -110,18 +120,18 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:hint="@string/time_for_cooking"
-                app:hintTextAppearance="@style/HintTextAppearance"
                 app:endIconMode="clear_text"
                 app:errorEnabled="true"
+                app:hintTextAppearance="@style/HintTextAppearance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/categoryTextInputLayout">
+                app:layout_constraintTop_toBottomOf="@+id/GridLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timeTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/timeTextInputEditText"
-                    android:imeOptions="flagNoExtractUi"/>
+                    android:imeOptions="flagNoExtractUi" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -130,18 +140,18 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:hint="@string/yield"
-                app:hintTextAppearance="@style/HintTextAppearance"
                 app:endIconMode="clear_text"
                 app:errorEnabled="true"
+                app:hintTextAppearance="@style/HintTextAppearance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/timeTextInputLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/yieldTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/yieldTextInputEditText"
-                    android:imeOptions="flagNoExtractUi"/>
+                    android:imeOptions="flagNoExtractUi" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -150,18 +160,18 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:hint="@string/recipe_ingredient"
-                app:hintTextAppearance="@style/HintTextAppearance"
                 app:endIconMode="clear_text"
                 app:errorEnabled="true"
+                app:hintTextAppearance="@style/HintTextAppearance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/yieldTextInputLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ingredientTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/ingredientTextInputEditText"
-                    android:imeOptions="flagNoExtractUi"/>
+                    android:imeOptions="flagNoExtractUi" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -170,18 +180,18 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:hint="@string/directions"
-                app:hintTextAppearance="@style/HintTextAppearance"
                 app:endIconMode="clear_text"
                 app:errorEnabled="true"
+                app:hintTextAppearance="@style/HintTextAppearance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ingredientTextInputLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/directionsTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/directionsTextInputEditText"
-                    android:imeOptions="flagNoExtractUi"/>
+                    android:imeOptions="flagNoExtractUi" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

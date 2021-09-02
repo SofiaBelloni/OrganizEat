@@ -2,12 +2,18 @@ package com.example.organizeat;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+import androidx.room.Relation;
+
+import static androidx.room.ForeignKey.SET_NULL;
 
 /**
  * Class which represents every card item with its information (image, place, data, description)
  */
-@Entity(tableName = "Recipe")
+@Entity(tableName = "Recipe", foreignKeys = {@ForeignKey(entity = Category.class,
+        parentColumns = "ID",
+        childColumns = "category")})
 public class CardItem {
 
     @PrimaryKey(autoGenerate = true)
@@ -20,7 +26,7 @@ public class CardItem {
     @ColumnInfo(name = "description")
     private String description;
     @ColumnInfo(name = "category")
-    private String category;
+    private int category;
     @ColumnInfo(name = "ingredients")
     private String ingredients;
     @ColumnInfo(name = "yield")
@@ -30,7 +36,7 @@ public class CardItem {
     @ColumnInfo(name = "directions")
     private String directions;
 
-    public CardItem(String imageResource, String recipe, String description, String category, String ingredients, String cooking_time, String directions, String yield) {
+    public CardItem(String imageResource, String recipe, String description, int category, String ingredients, String cooking_time, String directions, String yield) {
         this.imageResource = imageResource;
         this.recipe = recipe;
         this.description = description;
@@ -41,7 +47,7 @@ public class CardItem {
         this.directions = directions;
     }
 
-    public void update(String imageResource, String recipe, String description, String category, String ingredients, String cooking_time, String directions, String yield) {
+    public void update(String imageResource, String recipe, String description, int category, String ingredients, String cooking_time, String directions, String yield) {
         this.imageResource = imageResource;
         this.recipe = recipe;
         this.description = description;
@@ -64,7 +70,7 @@ public class CardItem {
         return description;
     }
 
-    public String getCategory() {
+    public int getCategory() {
         return category;
     }
 

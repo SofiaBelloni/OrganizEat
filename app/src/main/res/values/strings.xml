@@ -69,5 +69,6 @@
     <string name="category_deleted">Category deleted!</string>
     <string name="add">Add</string>
     <string name="add_category">Add category</string>
+    <string name="default_category">Main dish</string>
 
 </resources>

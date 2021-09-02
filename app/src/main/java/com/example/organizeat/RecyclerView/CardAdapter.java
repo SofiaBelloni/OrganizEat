@@ -111,8 +111,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> implements
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
                 for (CardItem item : cardItemListFiltered) {
-                    if (item.getCategory().toLowerCase().contains(filterPattern) ||
-                            item.getRecipe().toLowerCase().contains(filterPattern)) {
+                    if (item.getRecipe().toLowerCase().contains(filterPattern)) {
                         filteredList.add(item);
                     }
                 }

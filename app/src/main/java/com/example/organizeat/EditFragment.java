@@ -58,7 +58,7 @@ public class EditFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.recipe = view.findViewById(R.id.recipeTextInputEditText);
-        this.category = view.findViewById(R.id.categoryAutoCompleteTextView);
+        //this.category = view.findViewById(R.id.categoryAutoCompleteTextView);
         this.description = view.findViewById(R.id.descriptionTextInputEditText);
         this.cooking_time = view.findViewById(R.id.timeTextInputEditText);
         this.yield = view.findViewById(R.id.yieldTextInputEditText);
@@ -129,10 +129,9 @@ public class EditFragment extends Fragment {
                     }else {
                         imageUriString = "ic_launcher_foreground";
                     }
-
-                    listViewModel.updateSelected(imageUriString, this.recipe.getText().toString(), this.description.getText().toString(),
-                            "", this.ingredients.getText().toString(), this.cooking_time.getText().toString(),
-                            this.directions.getText().toString(), this.yield.getText().toString());
+                    //TODO
+                    //listViewModel.updateSelected(imageUriString, this.recipe.getText().toString(), this.description.getText().toString(), 0, this.ingredients.getText().toString(), this.cooking_time.getText().toString(),
+                          //  this.directions.getText().toString(), this.yield.getText().toString());
 
                     listViewModel.setBitMap(null);
                     //back to the previous fragment (Home)

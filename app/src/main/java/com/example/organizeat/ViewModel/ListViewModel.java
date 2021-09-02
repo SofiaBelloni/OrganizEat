@@ -38,7 +38,7 @@ public class ListViewModel extends AndroidViewModel {
 
     public void deleteSelected(){ this.repository.deleteCardItem(this.itemSelected.getValue());}
 
-    public void updateSelected(String imageResource, String recipe, String description, String category, String ingredients, String cooking_time, String directions, String yield){
+    public void updateSelected(String imageResource, String recipe, String description, int category, String ingredients, String cooking_time, String directions, String yield){
         this.itemSelected.getValue().update(imageResource, recipe, description, category, ingredients, cooking_time, directions, yield);
         this.repository.updateCardItem(this.itemSelected.getValue());
     }

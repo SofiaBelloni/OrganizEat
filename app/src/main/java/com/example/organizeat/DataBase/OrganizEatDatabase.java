@@ -15,7 +15,7 @@ import com.example.organizeat.ListItem;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {CardItem.class, ListItem.class, Category.class}, version = 2)
+@Database(entities = {CardItem.class, ListItem.class, Category.class}, version = 1)
 public abstract class OrganizEatDatabase extends RoomDatabase {
 
     public abstract CardItemDAO cardItemDAO();
@@ -28,21 +28,12 @@ public abstract class OrganizEatDatabase extends RoomDatabase {
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
-        @Override
-        public void migrate(SupportSQLiteDatabase database) {
-            database.execSQL("CREATE TABLE `Category` (`id` INTEGER, "
-                    + "`category_name` TEXT, PRIMARY KEY(`id`))");
-        }
-    };
-
     static OrganizEatDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (OrganizEatDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             OrganizEatDatabase.class, "organizeat_database")
-                            .addMigrations(MIGRATION_1_2)
                             .allowMainThreadQueries()
                             .build();
                 }
