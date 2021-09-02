@@ -26,9 +26,11 @@ public class ListViewModel extends AndroidViewModel {
         this.cardItems = this.repository.getCardItemList();
     }
 
-    public LiveData<Bitmap> getBitMap() {
-        return this.imageBitMap;
-    }
+    public String categoryName(){return this.repository.getCategoryName(this.itemSelected.getValue().getCategory());}
+
+    public String categoryNameById(int id){return this.repository.getCategoryName(id);}
+
+    public LiveData<Bitmap> getBitMap() { return this.imageBitMap; }
 
     public void setBitMap(Bitmap bitmap) { this.imageBitMap.setValue(bitmap);}
 

@@ -71,7 +71,7 @@ public class DetailsFragment extends Fragment {
             listViewModel.getSelected().observe(getViewLifecycleOwner(), cardItem -> {
                 recipe.setText(cardItem.getRecipe());
                 description.setText(cardItem.getDescription());
-                category.setText(cardItem.getCategory());
+                category.setText(listViewModel.categoryName());
                 yield.setText(cardItem.getYield());
                 ingredients.setText(cardItem.getIngredients());
                 directions.setText(cardItem.getDirections());

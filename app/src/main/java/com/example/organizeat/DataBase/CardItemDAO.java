@@ -27,6 +27,9 @@ public interface CardItemDAO {
     @Update
     void updateCardItem(CardItem CardItem);
 
+    @Query("SELECT category_name FROM category WHERE category.id = :id")
+    String getCategoryName(int id);
+
     @Delete
     void deleteCardItem(CardItem CardItem);
 }

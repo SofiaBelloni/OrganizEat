@@ -102,12 +102,7 @@ public class CategoryFragment extends Fragment {
                                 builder.show();
                                 break;
 
-                            case R.id.item_del:
-                                //fucntion for del
-                                Toast.makeText(getActivity(), view.getContext().getString(R.string.category_deleted), Toast.LENGTH_SHORT).show();
-                                categoryViewModel.deleteCategory(categoryViewModel.getCategories().get(position));
-                                list.remove(position);
-                                arrayAdapter.notifyDataSetChanged();
+                            default:
                                 break;
                         }
                         return true;

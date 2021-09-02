@@ -12,11 +12,14 @@ import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.organizeat.CardItem;
 import com.example.organizeat.R;
 import com.example.organizeat.Utilities;
+import com.example.organizeat.ViewModel.ListViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +83,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> implements
             }
         }
         holder.recipeTextView.setText(currentCardItem.getRecipe());
-        holder.categoryTextView.setText(currentCardItem.getCategory());
+        ListViewModel listViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(ListViewModel.class);
+        holder.categoryTextView.setText(listViewModel.categoryNameById(currentCardItem.getCategory()));
     }
 
     @Override

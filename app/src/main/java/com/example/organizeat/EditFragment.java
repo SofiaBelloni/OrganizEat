@@ -14,7 +14,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,9 +28,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
+import com.example.organizeat.ViewModel.CategoryViewModel;
 import com.example.organizeat.ViewModel.ListViewModel;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.organizeat.Utilities.REQUEST_IMAGE_CAPTURE;
 
@@ -35,12 +41,13 @@ public class EditFragment extends Fragment {
 
     private TextView recipe;
     private TextView description;
-    private TextView category;
+    private Spinner category_spinner;
     private TextView ingredients;
     private TextView yield;
     private TextView cooking_time;
     private TextView directions;
     private ImageView recipeImageView;
+    private int category_id;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,7 +65,7 @@ public class EditFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.recipe = view.findViewById(R.id.recipeTextInputEditText);
-        //this.category = view.findViewById(R.id.categoryAutoCompleteTextView);
+        this.category_spinner = view.findViewById(R.id.category_spinner);
         this.description = view.findViewById(R.id.descriptionTextInputEditText);
         this.cooking_time = view.findViewById(R.id.timeTextInputEditText);
         this.yield = view.findViewById(R.id.yieldTextInputEditText);
@@ -72,13 +79,41 @@ public class EditFragment extends Fragment {
             if(takePictureIntent.resolveActivity(activity.getPackageManager()) != null)
                 activity.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         });
+
+        CategoryViewModel categoryViewModel =  new ViewModelProvider((ViewModelStoreOwner)getActivity()).get(CategoryViewModel.class);
+        List<String> list = new ArrayList<>(categoryViewModel.getCategoriesName());
+        List<Category> categories = categoryViewModel.getCategories();
+        //create an ArrayAdaptar from the String Array
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(activity.getApplicationContext(), android.R.layout.simple_spinner_item, list);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        category_spinner.setAdapter(adapter);
+        category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                category_id = categories.get(position).getId();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //do nothing
+            }
+        });
+
         ListViewModel listViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(ListViewModel.class);
         if(activity != null){
             Utilities.setUpToolBar((AppCompatActivity)getActivity(), view.getContext().getString(R.string.edit));
             listViewModel.getSelected().observe(getViewLifecycleOwner(), cardItem -> {
                 recipe.setText(cardItem.getRecipe());
                 description.setText(cardItem.getDescription());
-                category.setText(cardItem.getCategory());
+                category_id = cardItem.getCategory();
+                for( Category cat: categories){
+                    if(category_id == cat.getId()){
+                        category_spinner.setSelection(categories.indexOf(cat));
+                    }
+                }
                 yield.setText(cardItem.getYield());
                 ingredients.setText(cardItem.getIngredients());
                 directions.setText(cardItem.getDirections());
@@ -130,8 +165,9 @@ public class EditFragment extends Fragment {
                         imageUriString = "ic_launcher_foreground";
                     }
                     //TODO
-                    //listViewModel.updateSelected(imageUriString, this.recipe.getText().toString(), this.description.getText().toString(), 0, this.ingredients.getText().toString(), this.cooking_time.getText().toString(),
-                          //  this.directions.getText().toString(), this.yield.getText().toString());
+                    listViewModel.updateSelected(imageUriString, this.recipe.getText().toString(), this.description.getText().toString(),
+                            category_id, this.ingredients.getText().toString(), this.cooking_time.getText().toString(),
+                            this.directions.getText().toString(), this.yield.getText().toString());
 
                     listViewModel.setBitMap(null);
                     //back to the previous fragment (Home)
