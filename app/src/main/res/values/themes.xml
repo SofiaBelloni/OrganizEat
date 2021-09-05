@@ -2,12 +2,12 @@
     <!-- Base application theme. -->
     <style name="Theme.OrganizEat" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/bluemarine</item>
-        <item name="colorPrimaryVariant">@color/dark_bluemarine</item>
+        <item name="colorPrimary">@color/dark_bluemarine</item>
+        <item name="colorPrimaryVariant">@color/bluemarine</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/bluemarine</item>
-        <item name="colorSecondaryVariant">@color/dark_bluemarine</item>
+        <item name="colorSecondary">@color/dark_bluemarine</item>
+        <item name="colorSecondaryVariant">@color/bluemarine</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>

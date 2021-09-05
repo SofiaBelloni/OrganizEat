@@ -43,21 +43,7 @@
     <string name="reply_title">Default reply action</string>
 
     <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="new_recipe">New Recipe</string>
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome!"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
     <string name="username">Username</string>
     <string name="profile">Profile</string>
     <string name="name">Name Surname</string>
@@ -71,5 +57,10 @@
     <string name="add_category">Add category</string>
     <string name="default_category">Main dish</string>
     <string name="filter_title">Filter by category</string>
+    <string name="added_to_list">Ingredients added to list</string>
+    <string name="added_recipe">New recipe added!</string>
+    <string name="edited_recipe">Recipe edited!</string>
+    <string name="category_used">The category is used! Impossible to delete!</string>
+    <string name="update_category">Update category</string>
 
 </resources>

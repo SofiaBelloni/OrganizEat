@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -170,6 +171,7 @@ public class EditFragment extends Fragment {
                             this.directions.getText().toString(), this.yield.getText().toString());
 
                     listViewModel.setBitMap(null);
+                    Toast.makeText(getActivity(),getView().getContext().getString(R.string.edited_recipe), Toast.LENGTH_SHORT).show();
                     //back to the previous fragment (Home)
                     ((AppCompatActivity) getActivity()).getSupportFragmentManager().popBackStack();
 

@@ -76,7 +76,7 @@ public class CategoryFragment extends Fragment {
                                 //function for update
                                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                 View v = LayoutInflater.from(getContext()).inflate(R.layout.category_dialog, null, false);
-                                builder.setTitle("Update Item");
+                                builder.setTitle(getView().getContext().getString(R.string.update_category));
                                 final EditText editText = v.findViewById(R.id.etItem);
                                 editText.setText(list.get(position));
                                 //set custome view to dialog
@@ -91,7 +91,6 @@ public class CategoryFragment extends Fragment {
                                             list.set(position, editText.getText().toString());
                                             categoryViewModel.updateCategory(cat);
                                             arrayAdapter.notifyDataSetChanged();
-                                            Toast.makeText(getActivity(), view.getContext().getString(R.string.edit_category), Toast.LENGTH_SHORT).show();
                                         } else {
                                             editText.setError("add item here !");
                                         }
@@ -101,6 +100,16 @@ public class CategoryFragment extends Fragment {
                                 builder.setNegativeButton(view.getContext().getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
                                 builder.show();
                                 break;
+                            case R.id.item_del:
+                                //fucntion for del
+                                if(categoryViewModel.isUsed(categoryViewModel.getCategories().get(position))){
+                                    Toast.makeText(getActivity(), view.getContext().getString(R.string.category_used), Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(getActivity(), view.getContext().getString(R.string.category_deleted), Toast.LENGTH_SHORT).show();
+                                    categoryViewModel.deleteCategory(categoryViewModel.getCategories().get(position));
+                                    list.remove(position);
+                                    arrayAdapter.notifyDataSetChanged();
+                                }
 
                             default:
                                 break;

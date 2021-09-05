@@ -24,6 +24,8 @@ public class CategoryViewModel extends AndroidViewModel {
 
     public void addCategory(Category category){ this.repository.addCategory(category);}
 
+    public boolean isUsed(Category category){ return !this.repository.getRecipeByCategory(category.getId()).isEmpty();}
+
     public List<Category> getCategories(){ return this.repository.getCategories();}
 
     public List<String> getCategoriesName(){ return this.repository.getCategoriesName();}

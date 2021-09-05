@@ -97,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_home:
                 Utilities.insertFragment( this, new HomeFragment(), "HomeFragment");
                 break;
+            case R.id.nav_add:
+                Utilities.insertFragment( this, new AddFragment(), "AddFragment");
+                break;
             case R.id.nav_shopping_list:
                 Utilities.insertFragment(this, new ListFragment(), "ListFragment");
                 break;
@@ -109,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             default:
                 Utilities.insertFragment(this, new HomeFragment(), "HomeFragment");
         }
-        menuItem.setChecked(true);
+        menuItem.setChecked(false);
         mDrawer.closeDrawers();
     }
 }

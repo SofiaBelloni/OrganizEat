@@ -7,4 +7,46 @@
     <string name="username">Nome utente</string>
     <string name="menage_category">Gestisci categorie</string>
     <string name="new_product">Nuovo prodotto</string>
+
+
+    <string name="search">Cerca</string>
+    <string name="menu">Menu</string>
+    <string name="image_of_the_recipe">Immagine della ricetta</string>
+    <string name="recipe_title">Titolo</string>
+    <string name="category">Categoria</string>
+    <string name="add_recipe">Aggiungi Ricetta</string>
+    <string name="new_recipe_title">Titolo</string>
+    <string name="recipe_description">Descrizione</string>
+    <string name="add_a_picture">Aggiungi immagine</string>
+    <string name="image_added">Immagine Aggiunta</string>
+    <string name="time_for_cooking">Tempo di preparazione</string>
+    <string name="recipe_ingredient">Ingredienti</string>
+    <string name="directions">Procedimento</string>
+    <string name="back">Indietro</string>
+    <string name="done">Fatto</string>
+    <string name="edit">Modifica</string>
+    <string name="more">Altro</string>
+    <string name="yield">Porzioni</string>
+    <string name="add_chart">Aggiungi alla lista della spesa</string>
+    <string name="delete">Elimina</string>
+    <string name="share">Condividi</string>
+    <string name="recipe_delete">Ricetta eliminata</string>
+    <string name="settings">Impostazioni</string>
+    <string name="list">Lista della spesa</string>
+    <string name="email">prova@email.com</string>
+    <string name="home">Home</string>
+    <string name="filter">Filtra</string>
+    <string name="edit_category">Categoria modificata!</string>
+    <string name="cancel">Annulla</string>
+    <string name="category_deleted">Categoria eliminata!</string>
+    <string name="add">Aggiungi</string>
+    <string name="default_category">Main dish</string>
+    <string name="filter_title">Filtra per categoria</string>
+    <string name="add_category">Aggiungi categoria</string>
+    <string name="added_to_list">Ingredienti aggiunti alla lista</string>
+    <string name="added_recipe">Nuova ricetta aggiunta!</string>
+    <string name="edited_recipe">Ricetta modificata!</string>
+    <string name="category_used">La categoria è usata! Impossibile eliminarla!</string>
+    <string name="update_category">Modifica categoria</string>
+
 </resources>

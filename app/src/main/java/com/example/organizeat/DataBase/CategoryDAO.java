@@ -8,6 +8,7 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
+import com.example.organizeat.CardItem;
 import com.example.organizeat.Category;
 import com.example.organizeat.ListItem;
 
@@ -27,6 +28,10 @@ public interface CategoryDAO {
     @Transaction
     @Query("SELECT category_name from Category ORDER BY ID DESC")
     List<String> getCategoriesName();
+
+    @Transaction
+    @Query("SELECT * from recipe WHERE recipe.category = :categoryId")
+    List<CardItem> getRecipeByCategory(int categoryId);
 
     @Delete
     void deleteCategory(Category category);

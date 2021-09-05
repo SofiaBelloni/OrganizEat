@@ -129,6 +129,7 @@ public class DetailsFragment extends Fragment {
             case R.id.app_bar_delete:
                 ListViewModel listViewModel = new ViewModelProvider((ViewModelStoreOwner) getActivity()).get(ListViewModel.class);
                 listViewModel.deleteSelected();
+                Toast.makeText(getActivity(),getView().getContext().getString(R.string.recipe_delete), Toast.LENGTH_SHORT).show();
                 ((AppCompatActivity) getActivity()).getSupportFragmentManager().popBackStack();
                 break;
 
@@ -148,17 +149,12 @@ public class DetailsFragment extends Fragment {
                 } else if(string.length()>0) {
                     shoppingListViewModel.addListItem(new ListItem(string));
                 }
-                Toast.makeText(getActivity(),"Ingredients added to list", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),getView().getContext().getString(R.string.added_to_list), Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
-
-    private void splitString(String string){
-        if (string.contains("\n")) {
-            String[] parts = string.split("\n");
-        }
-    }
+    
 }

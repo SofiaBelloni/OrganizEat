@@ -17,6 +17,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -141,6 +142,7 @@ public class AddFragment extends Fragment {
                         category_id, this.ingredients.getText().toString(), this.cooking_time.getText().toString(),
                         this.directions.getText().toString(), this.yield.getText().toString()));
                 addViewModel.setBitMap(null);
+                Toast.makeText(getActivity(), getView().getContext().getString(R.string.added_recipe), Toast.LENGTH_SHORT).show();
                 //back to the previous fragment (Home)
                 ((AppCompatActivity) getActivity()).getSupportFragmentManager().popBackStack();
 

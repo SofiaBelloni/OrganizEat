@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:fitsSystemWindows="true"
-                android:backgroundTint="@color/bluemarine"
+                android:backgroundTint="@color/dark_bluemarine"
                 android:minHeight="?attr/actionBarSize"
                 app:theme="@style/ThemeOverlay.Toolbar"
                 android:background="?attr/colorPrimaryDark">
