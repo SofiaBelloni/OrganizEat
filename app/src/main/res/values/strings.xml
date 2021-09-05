@@ -62,5 +62,7 @@
     <string name="edited_recipe">Recipe edited!</string>
     <string name="category_used">The category is used! Impossible to delete!</string>
     <string name="update_category">Update category</string>
+    <string name="take_picture">Take a picture</string>
+    <string name="select_picture">Select a picture</string>
 
 </resources>

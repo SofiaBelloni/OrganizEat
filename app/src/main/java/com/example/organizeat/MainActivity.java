@@ -1,8 +1,12 @@
 package com.example.organizeat;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -18,6 +22,7 @@ import com.example.organizeat.ViewModel.AddViewModel;
 import com.google.android.material.navigation.NavigationView;
 
 import static com.example.organizeat.Utilities.REQUEST_IMAGE_CAPTURE;
+import static com.example.organizeat.Utilities.REQUEST_IMAGE_GALLERY;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -66,6 +71,23 @@ public class MainActivity extends AppCompatActivity {
                 Bitmap imageBitMap = (Bitmap)extras.get("data");
                 addViewModel.setBitMap(imageBitMap);
             }
+        }
+        if(requestCode == REQUEST_IMAGE_GALLERY && resultCode == RESULT_OK){
+            Uri selectedImage =  data.getData();
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            if (selectedImage != null) {
+                Cursor cursor = getContentResolver().query(selectedImage,
+                        filePathColumn, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String picturePath = cursor.getString(columnIndex);
+                    addViewModel.setBitMap(BitmapFactory.decodeFile(picturePath));
+                    cursor.close();
+                }
+            }
+
+
         }
     }
 

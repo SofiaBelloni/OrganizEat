@@ -24,11 +24,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
+import com.example.organizeat.ViewModel.AddViewModel;
 import com.example.organizeat.ViewModel.CategoryViewModel;
 import com.example.organizeat.ViewModel.ListViewModel;
 
@@ -37,6 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.organizeat.Utilities.REQUEST_IMAGE_CAPTURE;
+import static com.example.organizeat.Utilities.REQUEST_IMAGE_GALLERY;
 
 public class EditFragment extends Fragment {
 
@@ -76,9 +79,27 @@ public class EditFragment extends Fragment {
         Activity activity = getActivity();
 
         view.findViewById(R.id.captureButton).setOnClickListener(v -> {
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            if(takePictureIntent.resolveActivity(activity.getPackageManager()) != null)
-                activity.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            PopupMenu popupMenu = new PopupMenu(getActivity(), view);
+            popupMenu.getMenuInflater().inflate(R.menu.pop_up_gallery_menu, popupMenu.getMenu());
+
+            popupMenu.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()) {
+                    case R.id.take_picture:
+                        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        if(takePictureIntent.resolveActivity(activity.getPackageManager()) != null)
+                            activity.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                        break;
+                    case R.id.select_picture:
+                        Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        if(pickPhoto.resolveActivity(activity.getPackageManager()) != null)
+                            activity.startActivityForResult(pickPhoto , REQUEST_IMAGE_GALLERY);
+                        break;
+                    default:
+                        break;
+                }
+                return true;
+            });
+            popupMenu.show();
         });
 
         CategoryViewModel categoryViewModel =  new ViewModelProvider((ViewModelStoreOwner)getActivity()).get(CategoryViewModel.class);
@@ -91,18 +112,16 @@ public class EditFragment extends Fragment {
         // Apply the adapter to the spinner
         category_spinner.setAdapter(adapter);
         category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 category_id = categories.get(position).getId();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 //do nothing
             }
         });
-
+        AddViewModel addViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddViewModel.class);
         ListViewModel listViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(ListViewModel.class);
         if(activity != null){
             Utilities.setUpToolBar((AppCompatActivity)getActivity(), view.getContext().getString(R.string.edit));
@@ -130,12 +149,13 @@ public class EditFragment extends Fragment {
                     Bitmap bitmap = Utilities.getImageBitmap(activity, Uri.parse(image_path));
                     if (bitmap != null) {
                         recipeImageView.setImageBitmap(bitmap);
+                        addViewModel.setBitMap(bitmap);
                         recipeImageView.setBackgroundColor(Color.WHITE);
                     }
                 }
             });
         }
-        listViewModel.getBitMap().observe(getViewLifecycleOwner(), bitmap -> this.recipeImageView.setImageBitmap(bitmap));
+        addViewModel.getBitMap().observe(getViewLifecycleOwner(), bitmap -> this.recipeImageView.setImageBitmap(bitmap));
     }
 
     @Override
@@ -154,9 +174,10 @@ public class EditFragment extends Fragment {
                 break;
             case R.id.app_bar_done:
                 View view = getView();
+                AddViewModel addViewModel = new ViewModelProvider((ViewModelStoreOwner) getActivity()).get(AddViewModel.class);
                 ListViewModel listViewModel = new ViewModelProvider((ViewModelStoreOwner) getActivity()).get(ListViewModel.class);
                 try {
-                    Bitmap bitmap = listViewModel.getBitMap().getValue();
+                    Bitmap bitmap = addViewModel.getBitMap().getValue();
                     String imageUriString;
                     if( bitmap != null){
                         //Method to save the image in device's gallery
@@ -170,7 +191,7 @@ public class EditFragment extends Fragment {
                             category_id, this.ingredients.getText().toString(), this.cooking_time.getText().toString(),
                             this.directions.getText().toString(), this.yield.getText().toString());
 
-                    listViewModel.setBitMap(null);
+                    addViewModel.setBitMap(null);
                     Toast.makeText(getActivity(),getView().getContext().getString(R.string.edited_recipe), Toast.LENGTH_SHORT).show();
                     //back to the previous fragment (Home)
                     ((AppCompatActivity) getActivity()).getSupportFragmentManager().popBackStack();

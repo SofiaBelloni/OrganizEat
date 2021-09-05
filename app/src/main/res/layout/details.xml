@@ -18,7 +18,7 @@
             <ImageView
                 android:id="@+id/recipe_image"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
                 android:layout_margin="0dp"
                 android:background="@color/white"
                 android:contentDescription="@string/image_of_the_recipe"
@@ -54,81 +54,80 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title" />
 
-            <TextView
-                android:id="@+id/category_text"
-                android:layout_width="wrap_content"
+
+
+            <GridLayout
+                android:id="@+id/GridLayout"
+                android:layout_marginTop="15dp"
+                android:foregroundGravity="left"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="start"
-                android:text="@string/category"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/time"
-                app:layout_constraintEnd_toStartOf="@+id/category"
+                android:columnCount="2"
+                android:orientation="horizontal"
+                android:rowCount="3"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/description" />
+                app:layout_constraintTop_toBottomOf="@+id/description">
 
-            <TextView
-                android:id="@+id/category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="start"
-                android:text="@string/category"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/category_text"
-                app:layout_constraintTop_toBottomOf="@+id/description" />
+                <TextView
+                    android:id="@+id/category_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="start"
+                    android:text="@string/category"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/time_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="start"
-                android:text="@string/time_for_cooking"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/category_text"
-                app:layout_constraintTop_toBottomOf="@+id/category_text" />
+                <TextView
+                    android:id="@+id/category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="start"
+                    android:text="@string/category"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
 
-            <TextView
-                android:id="@+id/time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="start"
-                android:text="@string/time_for_cooking"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/time_text"
-                app:layout_constraintTop_toBottomOf="@+id/category_text" />
+                <TextView
+                    android:id="@+id/time_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="start"
+                    android:text="@string/time_for_cooking"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="start"
+                    android:text="@string/time_for_cooking"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
 
 
-            <TextView
-                android:id="@+id/yield_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="start"
-                android:text="@string/yield"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/time_text"
-                app:layout_constraintTop_toBottomOf="@+id/time" />
+                <TextView
+                    android:id="@+id/yield_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="start"
+                    android:text="@string/yield"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/yield"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="start"
-                android:text="@string/yield"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/yield_text"
-                app:layout_constraintTop_toBottomOf="@+id/time" />
+                <TextView
+                    android:id="@+id/yield"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="start"
+                    android:text="@string/yield"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
 
+            </GridLayout>
 
             <TextView
                 android:id="@+id/ingredients_text"
@@ -136,11 +135,11 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/recipe_ingredient"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/yield" />
+                app:layout_constraintTop_toBottomOf="@+id/GridLayout" />
 
             <TextView
                 android:id="@+id/ingredients"
@@ -148,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/recipe_ingredient"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ingredients_text" />
@@ -158,9 +157,11 @@
                 android:id="@+id/directions_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:text="@string/directions"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -172,7 +173,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/directions"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/directions_text" />

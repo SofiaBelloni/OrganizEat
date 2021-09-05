@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -22,6 +21,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
@@ -31,10 +31,10 @@ import com.example.organizeat.ViewModel.CategoryViewModel;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static com.example.organizeat.Utilities.REQUEST_IMAGE_CAPTURE;
+import static com.example.organizeat.Utilities.REQUEST_IMAGE_GALLERY;
 
 public class AddFragment extends Fragment {
 
@@ -68,9 +68,32 @@ public class AddFragment extends Fragment {
         }
 
         view.findViewById(R.id.captureButton).setOnClickListener(v -> {
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            if(takePictureIntent.resolveActivity(activity.getPackageManager()) != null)
-                activity.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+
+            PopupMenu popupMenu = new PopupMenu(getActivity(), view);
+            popupMenu.getMenuInflater().inflate(R.menu.pop_up_gallery_menu, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+
+                    switch (item.getItemId()) {
+
+                        case R.id.take_picture:
+                            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            if(takePictureIntent.resolveActivity(activity.getPackageManager()) != null)
+                                activity.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                            break;
+                        case R.id.select_picture:
+                            Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            if(pickPhoto.resolveActivity(activity.getPackageManager()) != null)
+                                activity.startActivityForResult(pickPhoto , REQUEST_IMAGE_GALLERY);
+                            break;
+                        default:
+                            break;
+                    }
+                    return true;
+                }
+            });
+            popupMenu.show();
         });
 
         ImageView imageView = view.findViewById(R.id.imageView);
@@ -105,14 +128,11 @@ public class AddFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 category_id = listCategory.get(position).getId();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 //do nothing
             }
         });
-
-
     }
 
     @Override
