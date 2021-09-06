@@ -7,6 +7,7 @@
     <color name="teal_700">#009688</color>
     <color name="bluemarine">#00cc99</color>
     <color name="dark_bluemarine">#009973</color>
+    <color name="light">#65009973</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#0033CC</color>

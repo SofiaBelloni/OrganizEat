@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -78,8 +79,9 @@ public class EditFragment extends Fragment {
         this.recipeImageView = view.findViewById(R.id.imageView);
         Activity activity = getActivity();
 
-        view.findViewById(R.id.captureButton).setOnClickListener(v -> {
-            PopupMenu popupMenu = new PopupMenu(getActivity(), view);
+        Button captureImage =  view.findViewById(R.id.captureButton);
+        captureImage.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(getActivity(), captureImage);
             popupMenu.getMenuInflater().inflate(R.menu.pop_up_gallery_menu, popupMenu.getMenu());
 
             popupMenu.setOnMenuItemClickListener(item -> {
@@ -163,6 +165,7 @@ public class EditFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.new_recipe_top_app_bar, menu);
         menu.findItem(R.id.app_bar_search).setVisible(false);
+        menu.findItem(R.id.app_bar_close).setVisible(false);
         menu.findItem(R.id.app_bar_filter).setVisible(false);
     }
 

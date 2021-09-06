@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -67,31 +69,26 @@ public class AddFragment extends Fragment {
             Utilities.setUpToolBar((AppCompatActivity)activity, view.getContext().getString(R.string.new_recipe));
         }
 
-        view.findViewById(R.id.captureButton).setOnClickListener(v -> {
-
-            PopupMenu popupMenu = new PopupMenu(getActivity(), view);
+        Button captureImage =  view.findViewById(R.id.captureButton);
+        captureImage.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(getActivity(), captureImage);
             popupMenu.getMenuInflater().inflate(R.menu.pop_up_gallery_menu, popupMenu.getMenu());
-            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-
-                    switch (item.getItemId()) {
-
-                        case R.id.take_picture:
-                            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            if(takePictureIntent.resolveActivity(activity.getPackageManager()) != null)
-                                activity.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-                            break;
-                        case R.id.select_picture:
-                            Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                            if(pickPhoto.resolveActivity(activity.getPackageManager()) != null)
-                                activity.startActivityForResult(pickPhoto , REQUEST_IMAGE_GALLERY);
-                            break;
-                        default:
-                            break;
-                    }
-                    return true;
+            popupMenu.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()) {
+                    case R.id.take_picture:
+                        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        if(takePictureIntent.resolveActivity(activity.getPackageManager()) != null)
+                            activity.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                        break;
+                    case R.id.select_picture:
+                        Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        if(pickPhoto.resolveActivity(activity.getPackageManager()) != null)
+                            activity.startActivityForResult(pickPhoto , REQUEST_IMAGE_GALLERY);
+                        break;
+                    default:
+                        break;
                 }
+                return true;
             });
             popupMenu.show();
         });
@@ -140,6 +137,7 @@ public class AddFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.new_recipe_top_app_bar, menu);
         menu.findItem(R.id.app_bar_search).setVisible(false);
+        menu.findItem(R.id.app_bar_close).setVisible(false);
         menu.findItem(R.id.app_bar_filter).setVisible(false);
     }
 

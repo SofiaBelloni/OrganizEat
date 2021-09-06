@@ -84,6 +84,7 @@ public class ListFragment extends Fragment {
         inflater.inflate(R.menu.share_app_bar, menu);
         menu.findItem(R.id.app_bar_search).setVisible(false);
         menu.findItem(R.id.app_bar_filter).setVisible(false);
+        menu.findItem(R.id.app_bar_close).setVisible(false);
     }
 
     // function to add an item given its name.
@@ -97,7 +98,6 @@ public class ListFragment extends Fragment {
 
     // function to remove an item given its index in the grocery list.
     public static void removeItem(int i) {
-        Toast.makeText(context,"Removed " + items.get(i), Toast.LENGTH_SHORT).show();
         ShoppingListViewModel listViewModel = new ViewModelProvider((ViewModelStoreOwner)activity).get(ShoppingListViewModel.class);
         listViewModel.deleteListItem(items.get(i));
         items.remove(i);

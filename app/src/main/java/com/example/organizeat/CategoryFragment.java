@@ -129,6 +129,7 @@ public class CategoryFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.category_app_bar, menu);
         menu.findItem(R.id.app_bar_search).setVisible(false);
+        menu.findItem(R.id.app_bar_close).setVisible(false);
         menu.findItem(R.id.app_bar_filter).setVisible(false);
     }
 

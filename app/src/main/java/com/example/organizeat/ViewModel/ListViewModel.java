@@ -16,7 +16,6 @@ import java.util.List;
 public class ListViewModel extends AndroidViewModel {
 
     private final MutableLiveData<CardItem> itemSelected = new MutableLiveData<>();
-    private final MutableLiveData<Bitmap> imageBitMap = new MutableLiveData<>();
     private LiveData<List<CardItem>> cardItems;
     private CardItemRepository repository;
 
@@ -29,10 +28,6 @@ public class ListViewModel extends AndroidViewModel {
     public String categoryName(){return this.repository.getCategoryName(this.itemSelected.getValue().getCategory());}
 
     public String categoryNameById(int id){return this.repository.getCategoryName(id);}
-
-    public LiveData<Bitmap> getBitMap() { return this.imageBitMap; }
-
-    public void setBitMap(Bitmap bitmap) { this.imageBitMap.setValue(bitmap);}
 
     public void select(CardItem cardItem){ this.itemSelected.setValue(cardItem); }
 

@@ -13,4 +13,10 @@
         android:icon="@drawable/ic_baseline_filter_alt_24"
         android:title="@string/filter"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/app_bar_close"
+        android:icon="@drawable/ic_baseline_close_24"
+        android:title="@string/close"
+        app:showAsAction="always" />
 </menu>

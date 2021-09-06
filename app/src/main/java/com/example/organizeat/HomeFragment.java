@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment  implements OnItemListener {
     private  CardAdapter adapter;
     private RecyclerView recyclerView;
     private ListViewModel listViewModel;
-    private int id;
+    private Menu menu;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,7 +93,9 @@ public class HomeFragment extends Fragment  implements OnItemListener {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        this.menu = menu;
         MenuItem item = menu.findItem(R.id.app_bar_search);
+        menu.findItem(R.id.app_bar_close).setVisible(false);
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
              /**
@@ -137,6 +139,11 @@ public class HomeFragment extends Fragment  implements OnItemListener {
             create_filter_dialog();
             return true;
         }
+        if(item.getItemId() == R.id.app_bar_close){
+            adapter.getFilter().filter("");
+            this.menu.findItem(R.id.app_bar_close).setVisible(false);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -148,27 +155,14 @@ public class HomeFragment extends Fragment  implements OnItemListener {
         View v = LayoutInflater.from(getActivity()).inflate(R.layout.filter_dialog, null, false);
         Spinner spinner = v.findViewById(R.id.filter_spinner);;
         builder.setView(v);
-        List<String> list = new ArrayList<>(categoryViewModel.getCategoriesName());
         List<Category> categories = new ArrayList<>(categoryViewModel.getCategories());
-        ArrayAdapter adapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, categories);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
+        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, categories);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
+        categoryViewModel.setFilterCategory(categories.get(categories.size()-1));
         builder.setPositiveButton(getView().getContext().getString(R.string.filter), (dialog, which) -> {
-            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    id = categories.get(position).getId();
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-                    id = categories.get(categories.size()-1).getId();
-                }
-            });
-
-            adapter.getFilter().filter(String.valueOf(id));
+            adapter.getFilter().filter(String.valueOf(((Category) spinner.getSelectedItem()).getId()));
+            this.menu.findItem(R.id.app_bar_close).setVisible(true);
         });
 
         builder.setNegativeButton(getView().getContext().getString(R.string.cancel), (dialog, which) -> dialog.dismiss());

@@ -101,6 +101,7 @@ public class DetailsFragment extends Fragment {
         inflater.inflate(R.menu.recipe_app_bar, menu);
         menu.findItem(R.id.app_bar_search).setVisible(false);
         menu.findItem(R.id.app_bar_filter).setVisible(false);
+        menu.findItem(R.id.app_bar_close).setVisible(false);
     }
 
     @Override
@@ -121,10 +122,6 @@ public class DetailsFragment extends Fragment {
                     view.getContext().startActivity(Intent.createChooser(sendIntent, null));
                 }
                 return true;
-
-            case R.id.app_bar_back:
-                ((AppCompatActivity) getActivity()).getSupportFragmentManager().popBackStack();
-                break;
 
             case R.id.app_bar_delete:
                 ListViewModel listViewModel = new ViewModelProvider((ViewModelStoreOwner) getActivity()).get(ListViewModel.class);
@@ -156,5 +153,5 @@ public class DetailsFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
-    
+
 }

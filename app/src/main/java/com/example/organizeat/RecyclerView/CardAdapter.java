@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,7 +70,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> implements
     @Override
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
         CardItem currentCardItem = cardItemList.get(position);
-
         String image_path = currentCardItem.getImageResource();
         if (image_path.contains("ic_")) {
             Drawable drawable = ContextCompat.getDrawable(activity, activity.getResources()
@@ -107,14 +107,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> implements
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             List<CardItem> filteredList = new ArrayList<>();
-
             //if you have no constraint --> return the full list
             if (constraint == null || constraint.length() == 0) {
                 filteredList.addAll(cardItemListFiltered);
             } else {
                 //else apply the filter and return a filtered list
                 String filterPattern = constraint.toString().toLowerCase().trim();
-
                 for (CardItem item : cardItemListFiltered) {
                     if(isNumeric(constraint.toString()) && item.getCategory() == Integer.parseInt(constraint.toString())){
                         filteredList.add(item);
