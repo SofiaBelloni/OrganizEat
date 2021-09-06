@@ -129,6 +129,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_settings:
                 Utilities.insertFragment(this, new SettingsFragment(), "SettingsFragment");
                 break;
+            case R.id.nav_logout:
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                break;
             default:
                 Utilities.insertFragment(this, new HomeFragment(), "HomeFragment");
         }

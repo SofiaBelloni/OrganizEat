@@ -24,10 +24,9 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:fitsSystemWindows="true"
-                android:backgroundTint="@color/dark_bluemarine"
+                android:backgroundTint="@color/light2"
                 android:minHeight="?attr/actionBarSize"
-                app:theme="@style/ThemeOverlay.Toolbar"
-                android:background="?attr/colorPrimaryDark">
+                app:theme="@style/ThemeOverlay.Toolbar">
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
 

@@ -71,5 +71,6 @@
     <string name="already_have_an_account">Already Have an Account?</string>
     <string name="login">Login</string>
     <string name="no_account">Don\'t have an Account?</string>
+    <string name="logout">Logout</string>
 
 </resources>

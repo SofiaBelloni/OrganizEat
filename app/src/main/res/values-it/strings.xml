@@ -55,7 +55,7 @@
     <string name="confirm_password">Conferma password</string>
     <string name="sign_up">Registrati</string>
     <string name="already_have_an_account">Hai già un account?</string>
-    <string name="no_account">Non hai ancora un account?</string>
+    <string name="no_account">Non hai un account?</string>
     <string name="login">Accedi</string>
 
 </resources>
