@@ -4,7 +4,7 @@
     <string name="profile">Profilo</string>
     <string name="name">Nome</string>
     <string name="goals">Obiettivi</string>
-    <string name="username">Nome utente</string>
+    <string name="username">Nome</string>
     <string name="menage_category">Gestisci categorie</string>
     <string name="new_product">Nuovo prodotto</string>
 
@@ -33,7 +33,7 @@
     <string name="recipe_delete">Ricetta eliminata</string>
     <string name="settings">Impostazioni</string>
     <string name="list">Lista della spesa</string>
-    <string name="email">prova@email.com</string>
+    <string name="email">Email</string>
     <string name="home">Home</string>
     <string name="filter">Filtra</string>
     <string name="edit_category">Categoria modificata!</string>
@@ -48,5 +48,14 @@
     <string name="edited_recipe">Ricetta modificata!</string>
     <string name="category_used">La categoria è usata! Impossibile eliminarla!</string>
     <string name="update_category">Modifica categoria</string>
+    <string name="take_picture">Scatta una foto</string>
+    <string name="select_picture">Seleziona una foto</string>
+    <string name="close">Chiudi</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Conferma password</string>
+    <string name="sign_up">Registrati</string>
+    <string name="already_have_an_account">Hai già un account?</string>
+    <string name="no_account">Non hai ancora un account?</string>
+    <string name="login">Accedi</string>
 
 </resources>
