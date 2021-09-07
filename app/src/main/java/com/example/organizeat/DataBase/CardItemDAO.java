@@ -24,6 +24,10 @@ public interface CardItemDAO {
     @Query("SELECT * from recipe WHERE recipe.user = :user ORDER BY ID DESC")
     LiveData<List<CardItem>> getCardItems(String user);
 
+    @Transaction
+    @Query("SELECT COUNT(ID) FROM recipe  WHERE recipe.user = :user")
+    int getCardItemsCount(String user);
+
     @Update
     void updateCardItem(CardItem CardItem);
 

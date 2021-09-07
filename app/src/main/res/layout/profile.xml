@@ -60,4 +60,158 @@
         android:textColor="@color/dark_bluemarine"
         android:textStyle="bold" />
 
+    <GridLayout
+        android:id="@+id/RecipesGrid"
+        android:layout_marginTop="15dp"
+        android:foregroundGravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="4"
+        android:orientation="horizontal"
+        android:rowCount="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+                android:id="@+id/circular_recipes"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:progress="100"
+                android:indeterminateOnly="false"
+                android:progressDrawable="@drawable/pb_circular_determinative"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/progress_recipes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/circular_recipes"
+                app:layout_constraintEnd_toEndOf="@+id/circular_recipes"
+                app:layout_constraintStart_toStartOf="@+id/circular_recipes"
+                app:layout_constraintTop_toTopOf="@+id/circular_recipes"
+                android:text="0 %" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/recipe"
+            android:layout_marginTop="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:text="@string/recipe"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/black" />
+        <TextView
+            android:id="@+id/numberRecipe"
+            android:layout_marginTop="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="0"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/black" />
+        <TextView
+            android:id="@+id/totalRecipes"
+            android:layout_marginTop="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="7dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:text="/ 100"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/black" />
+    </GridLayout>
+
+    <GridLayout
+        android:id="@+id/CategoriesGrid"
+        android:foregroundGravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="4"
+        android:orientation="horizontal"
+        android:rowCount="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+                android:id="@+id/circular_categories"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:indeterminateOnly="false"
+                android:progress="90"
+                android:progressDrawable="@drawable/pb_circular_determinative"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/progress_categrories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/circular_categories"
+                app:layout_constraintEnd_toEndOf="@+id/circular_categories"
+                app:layout_constraintStart_toStartOf="@+id/circular_categories"
+                app:layout_constraintTop_toTopOf="@+id/circular_categories"
+                android:text="0 %" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/categories"
+            android:layout_marginTop="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:text="@string/categories"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/black" />
+        <TextView
+            android:id="@+id/numberCategory"
+            android:layout_marginTop="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:text="0"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/black" />
+        <TextView
+            android:id="@+id/totalCategories"
+            android:layout_marginTop="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="7dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:text="/ 15"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/black" />
+    </GridLayout>
+
+
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -2,6 +2,7 @@ package com.example.organizeat.ViewModel;
 
 import android.app.Application;
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -42,6 +43,8 @@ public class ListViewModel extends AndroidViewModel {
     public LiveData<List<CardItem>> getCardItems(String username){
         this.cardItems = this.repository.getCardItemList(username);
         return  cardItems;}
+
+    public int getCardItemsCount(String username){return this.repository.getCardItemsCount(username);}
 
     public CardItem getCardItem(int position){
         return cardItems.getValue() == null ? null : cardItems.getValue().get(position);

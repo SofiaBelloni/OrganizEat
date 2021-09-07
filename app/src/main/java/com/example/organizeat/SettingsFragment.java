@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,6 +26,10 @@ import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.example.organizeat.DataBase.UserRepository;
 import com.example.organizeat.ViewModel.AddViewModel;
+import com.example.organizeat.ViewModel.CategoryViewModel;
+import com.example.organizeat.ViewModel.ListViewModel;
+
+import java.util.List;
 
 public class SettingsFragment extends Fragment {
 
@@ -44,10 +50,10 @@ public class SettingsFragment extends Fragment {
         Activity activity = getActivity();
         if (activity != null) {
             Utilities.setUpToolBar((AppCompatActivity) activity, getString(R.string.profile));
-            AddViewModel addViewModel =  new ViewModelProvider((ViewModelStoreOwner)getActivity()).get(AddViewModel.class);
+            CategoryViewModel categoryViewModel =  new ViewModelProvider((ViewModelStoreOwner)getActivity()).get(CategoryViewModel.class);
             EditText editText = view.findViewById(R.id.profile_name);
-            ((TextView)view.findViewById(R.id.profile_email)).setText(addViewModel.getUser().getEmail());
-            editText.setText(addViewModel.getUser().getName());
+            ((TextView)view.findViewById(R.id.profile_email)).setText(categoryViewModel.getUser().getEmail());
+            editText.setText(categoryViewModel.getUser().getName());
             editText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -59,12 +65,25 @@ public class SettingsFragment extends Fragment {
                 }
                 @Override
                 public void afterTextChanged(Editable s) {
-                    addViewModel.getUser().setName(s.toString());
+                    categoryViewModel.getUser().setName(s.toString());
                     UserRepository userRepository = new UserRepository(getActivity().getApplication());
-                    userRepository.updateUserName(addViewModel.getUser());
+                    userRepository.updateUserName(categoryViewModel.getUser());
                 }
             });
-        }
+            ListViewModel listViewModel =  new ViewModelProvider((ViewModelStoreOwner)getActivity()).get(ListViewModel.class);
+            int recipes = listViewModel.getCardItemsCount(categoryViewModel.getUser().getEmail());
+            int categories = categoryViewModel.getCategories().size();
+
+            ((ProgressBar)view.findViewById(R.id.circular_recipes)).setProgress(recipes);
+            ((TextView)view.findViewById(R.id.numberRecipe)).setText(String.valueOf(recipes));
+            ((TextView)view.findViewById(R.id.progress_recipes)).setText(String.valueOf(recipes).concat(" %"));
+
+
+            int percentage = (int)((categories*100)/15);
+            ((ProgressBar)view.findViewById(R.id.circular_categories)).setProgress(percentage);
+            ((TextView)view.findViewById(R.id.numberCategory)).setText(String.valueOf(categories));
+            ((TextView)view.findViewById(R.id.progress_categrories)).setText(String.valueOf(percentage).concat(" %"));
+         }
     }
 
     @Override

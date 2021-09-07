@@ -24,6 +24,8 @@ public class CardItemRepository {
 
     public String getCategoryName(int id){return cardItemDAO.getCategoryName(id);}
 
+    public int getCardItemsCount(String user){return cardItemDAO.getCardItemsCount(user);}
+
     // You must call this on a non-UI thread or your app will throw an exception. Room ensures
     // that you're not doing any long running operations on the main thread, blocking the UI.
     public void addCardItem(final CardItem CardItem) {
