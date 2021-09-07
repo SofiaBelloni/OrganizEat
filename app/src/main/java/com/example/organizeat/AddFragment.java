@@ -108,7 +108,7 @@ public class AddFragment extends Fragment {
         CategoryViewModel categoryViewModel =  new ViewModelProvider((ViewModelStoreOwner)getActivity()).get(CategoryViewModel.class);
         List<String> list = new ArrayList<>(categoryViewModel.getCategoriesName());
         if(list.isEmpty()){
-            categoryViewModel.addCategory(new Category(view.getResources().getString(R.string.default_category)));
+            categoryViewModel.addCategory(new Category(view.getResources().getString(R.string.default_category), addViewModel.getUser().getEmail()));
             list = new ArrayList<>(categoryViewModel.getCategoriesName());
         }
         List<Category> listCategory = new ArrayList<>(categoryViewModel.getCategories());
@@ -158,7 +158,7 @@ public class AddFragment extends Fragment {
 
                 addViewModel.addCardItem(new CardItem(imageUriString, this.recipe.getText().toString(), this.description.getText().toString(),
                         category_id, this.ingredients.getText().toString(), this.cooking_time.getText().toString(),
-                        this.directions.getText().toString(), this.yield.getText().toString()));
+                        this.directions.getText().toString(), this.yield.getText().toString(), addViewModel.getUser().getEmail()));
                 addViewModel.setBitMap(null);
                 Toast.makeText(getActivity(), getView().getContext().getString(R.string.added_recipe), Toast.LENGTH_SHORT).show();
                 //back to the previous fragment (Home)

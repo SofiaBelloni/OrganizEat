@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
+import com.example.organizeat.ViewModel.AddViewModel;
 import com.example.organizeat.ViewModel.ListViewModel;
 import com.example.organizeat.ViewModel.ShoppingListViewModel;
 
@@ -139,12 +140,13 @@ public class DetailsFragment extends Fragment {
                 if (string.contains("\n")) {
                     parts = string.split("\n");
                 }
+                AddViewModel addViewModel =  new ViewModelProvider((ViewModelStoreOwner)getActivity()).get(AddViewModel.class);
                 ShoppingListViewModel shoppingListViewModel = new ViewModelProvider((ViewModelStoreOwner)getActivity()).get(ShoppingListViewModel.class);
                 if (parts.length>0){
                     for(String part: parts)
-                        shoppingListViewModel.addListItem(new ListItem(part));
+                        shoppingListViewModel.addListItem(new ListItem(part, addViewModel.getUser().getEmail()));
                 } else if(string.length()>0) {
-                    shoppingListViewModel.addListItem(new ListItem(string));
+                    shoppingListViewModel.addListItem(new ListItem(string, addViewModel.getUser().getEmail()));
                 }
                 Toast.makeText(getActivity(),getView().getContext().getString(R.string.added_to_list), Toast.LENGTH_SHORT).show();
                 break;

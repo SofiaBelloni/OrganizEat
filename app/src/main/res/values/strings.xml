@@ -72,5 +72,13 @@
     <string name="login">Login</string>
     <string name="no_account">Don\'t have an Account?</string>
     <string name="logout">Logout</string>
+    <string name="enter_email">Please Enter Email</string>
+    <string name="enter_pw">Please Enter Password</string>
+    <string name="enter_correct_email">Please Enter Valid Email</string>
+    <string name="enter_correct_pw">Please Enter Valid Password</string>
+    <string name="enter_name">Please Enter Username</string>
+    <string name="confirm_pw">Please Confirm Password</string>
+    <string name="email_already_present">Email already present</string>
+    <string name="pw_equals">Confirm-Passord must be the same</string>
 
 </resources>

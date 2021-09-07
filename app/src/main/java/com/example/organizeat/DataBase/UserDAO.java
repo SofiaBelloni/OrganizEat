@@ -1,6 +1,5 @@
 package com.example.organizeat.DataBase;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -10,26 +9,26 @@ import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.example.organizeat.CardItem;
+import com.example.organizeat.Category;
+import com.example.organizeat.User;
 
 import java.util.List;
 
 @Dao
-public interface CardItemDAO {
+public interface UserDAO {
     // The selected on conflict strategy ignores a new CardItem
     // if it's exactly the same as one already in the list.
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void addCardItem(CardItem CardItem);
+    void addUser(User user);
 
     @Transaction
-    @Query("SELECT * from recipe WHERE recipe.user = :user ORDER BY ID DESC")
-    LiveData<List<CardItem>> getCardItems(String user);
+    @Query("SELECT * from User WHERE User.email = :email")
+    List<User> getUserByEmail(String email);
+
+    @Transaction
+    @Query("SELECT username from User WHERE user.email = :email")
+    String getUserName(String email);
 
     @Update
-    void updateCardItem(CardItem CardItem);
-
-    @Query("SELECT category_name FROM category WHERE category.id = :id")
-    String getCategoryName(int id);
-
-    @Delete
-    void deleteCardItem(CardItem CardItem);
+    void updateUserName(User user);
 }

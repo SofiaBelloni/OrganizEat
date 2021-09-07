@@ -4,16 +4,18 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
-import androidx.room.Relation;
 
-import static androidx.room.ForeignKey.SET_NULL;
 
 /**
  * Class which represents every card item with its information (image, place, data, description)
  */
-@Entity(tableName = "Recipe", foreignKeys = {@ForeignKey(entity = Category.class,
+@Entity(tableName = "Recipe", foreignKeys =
+        {@ForeignKey(entity = Category.class,
         parentColumns = "ID",
-        childColumns = "category")})
+        childColumns = "category"),
+        @ForeignKey(entity = User.class,
+                parentColumns = "email",
+                childColumns = "user")})
 public class CardItem {
 
     @PrimaryKey(autoGenerate = true)
@@ -35,8 +37,10 @@ public class CardItem {
     private String cooking_time;
     @ColumnInfo(name = "directions")
     private String directions;
+    @ColumnInfo(name = "user")
+    private String user;
 
-    public CardItem(String imageResource, String recipe, String description, int category, String ingredients, String cooking_time, String directions, String yield) {
+    public CardItem(String imageResource, String recipe, String description, int category, String ingredients, String cooking_time, String directions, String yield, String user) {
         this.imageResource = imageResource;
         this.recipe = recipe;
         this.description = description;
@@ -45,6 +49,7 @@ public class CardItem {
         this.cooking_time = cooking_time;
         this.yield = yield;
         this.directions = directions;
+        this.user = user;
     }
 
     public void update(String imageResource, String recipe, String description, int category, String ingredients, String cooking_time, String directions, String yield) {
@@ -81,6 +86,8 @@ public class CardItem {
     public String getCooking_time() { return cooking_time;}
 
     public String getDirections() { return directions;}
+
+    public String getUser() { return user;}
 
     public int getId() { return id; }
 

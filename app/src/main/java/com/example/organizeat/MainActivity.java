@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +20,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.organizeat.DataBase.UserRepository;
 import com.example.organizeat.ViewModel.AddViewModel;
 import com.google.android.material.navigation.NavigationView;
 
@@ -48,10 +51,21 @@ public class MainActivity extends AppCompatActivity {
         // Setup drawer view
         setupDrawerContent(nvDrawer);
 
+        Bundle bundle = getIntent().getExtras();
+        String email = bundle.getString("user");
+        UserRepository userRepository = new UserRepository(getApplication());
+        User user = userRepository.getUserByEmail(email).get(0);
         if(savedInstanceState == null)
             Utilities.insertFragment(this, new HomeFragment(), FRAGMENT_TAG);
 
         this.addViewModel = new ViewModelProvider(this).get(AddViewModel.class);
+        this.addViewModel.setUser(user);
+        if (nvDrawer.getHeaderCount() > 0) {
+            // avoid NPE by first checking if there is at least one Header View available
+            View headerLayout = nvDrawer.getHeaderView(0);
+            TextView emailTV = headerLayout.findViewById(R.id.textView);
+            emailTV.setText(user.getEmail());
+        }
     }
 
 

@@ -13,11 +13,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+
+import com.example.organizeat.DataBase.UserRepository;
+import com.example.organizeat.ViewModel.AddViewModel;
 
 public class SettingsFragment extends Fragment {
 
@@ -38,10 +44,10 @@ public class SettingsFragment extends Fragment {
         Activity activity = getActivity();
         if (activity != null) {
             Utilities.setUpToolBar((AppCompatActivity) activity, getString(R.string.profile));
-
+            AddViewModel addViewModel =  new ViewModelProvider((ViewModelStoreOwner)getActivity()).get(AddViewModel.class);
             EditText editText = view.findViewById(R.id.profile_name);
-            SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
-            editText.setText(sharedPref.getString(getString(R.string.settings), view.getContext().getString(R.string.name)));
+            ((TextView)view.findViewById(R.id.profile_email)).setText(addViewModel.getUser().getEmail());
+            editText.setText(addViewModel.getUser().getName());
             editText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -53,10 +59,9 @@ public class SettingsFragment extends Fragment {
                 }
                 @Override
                 public void afterTextChanged(Editable s) {
-                    //editText.setText(s);
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString(getString(R.string.settings), String.valueOf(s));
-                    editor.apply();
+                    addViewModel.getUser().setName(s.toString());
+                    UserRepository userRepository = new UserRepository(getActivity().getApplication());
+                    userRepository.updateUserName(addViewModel.getUser());
                 }
             });
         }

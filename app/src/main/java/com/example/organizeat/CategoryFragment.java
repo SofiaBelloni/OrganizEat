@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
+import com.example.organizeat.ViewModel.AddViewModel;
 import com.example.organizeat.ViewModel.CategoryViewModel;
 import com.example.organizeat.ViewModel.ShoppingListViewModel;
 
@@ -153,7 +154,7 @@ public class CategoryFragment extends Fragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(getView().getContext().getString(R.string.add_category));
-
+        AddViewModel addViewModel =  new ViewModelProvider((ViewModelStoreOwner)getActivity()).get(AddViewModel.class);
         View v = LayoutInflater.from(getActivity()).inflate(R.layout.category_dialog, null, false);
 
         builder.setView(v);
@@ -162,7 +163,7 @@ public class CategoryFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (!etItem.getText().toString().isEmpty()) {
-                    Category newCat = new Category(etItem.getText().toString());
+                    Category newCat = new Category(etItem.getText().toString(), addViewModel.getUser().getEmail());
                     categoryViewModel.addCategory(newCat);
                     list.add(0, newCat.getCategory());
                     arrayAdapter.notifyDataSetChanged();

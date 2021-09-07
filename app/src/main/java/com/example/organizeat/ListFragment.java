@@ -23,6 +23,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
+import com.example.organizeat.ViewModel.AddViewModel;
 import com.example.organizeat.ViewModel.ListViewModel;
 import com.example.organizeat.ViewModel.ShoppingListViewModel;
 
@@ -37,6 +38,7 @@ public class ListFragment extends Fragment {
     static Context context;
     private ShoppingListViewModel listViewModel;
     static Activity activity;
+    private User user;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,7 +57,8 @@ public class ListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         listView = view.findViewById(R.id.list);
         EditText input = view.findViewById(R.id.input);
-
+        AddViewModel addViewModel =  new ViewModelProvider((ViewModelStoreOwner)getActivity()).get(AddViewModel.class);
+        this.user = addViewModel.getUser();
         if(getActivity()!=null){
             activity = getActivity();
             Utilities.setUpToolBar((AppCompatActivity)getActivity(), view.getContext().getString(R.string.list));
@@ -89,7 +92,8 @@ public class ListFragment extends Fragment {
 
     // function to add an item given its name.
     private void addItem(String item) {
-        ListItem listItem = new ListItem(item);
+
+        ListItem listItem = new ListItem(item, this.user.getEmail());
         listViewModel = new ViewModelProvider((ViewModelStoreOwner)getActivity()).get(ShoppingListViewModel.class);
         listViewModel.addListItem(listItem);
         items.add(listItem);

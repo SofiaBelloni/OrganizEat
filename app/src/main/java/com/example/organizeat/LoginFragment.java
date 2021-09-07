@@ -15,11 +15,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.organizeat.DataBase.UserRepository;
+
+import java.util.List;
+
 public class LoginFragment extends Fragment {
 
     private static final String LOG = "Login-Fragment_LAB";
     EditText email, password;
-    final int MIN_PASSWORD_LENGTH = 6;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +49,7 @@ public class LoginFragment extends Fragment {
                 if (validateInput()) {
                     //login
                     Intent intent = new Intent(activity, MainActivity.class);
+                    intent.putExtra("user", this.email.getText().toString());
                     startActivity(intent);
                 }
             });
@@ -57,27 +61,32 @@ public class LoginFragment extends Fragment {
     // Checking if the input is valid
     private boolean validateInput() {
 
+        UserRepository userRepository = new UserRepository(getActivity().getApplication());
+
+        //email non inserita
         if (this.email.getText().toString().equals("")) {
-            this.email.setError("Please Enter Email");
+            this.email.setError(getView().getContext().getString(R.string.enter_email));
             return false;
         }
+        //password non inserita
         if (this.password.getText().toString().equals("")) {
-            this.password.setError("Please Enter Password");
+            this.password.setError(getView().getContext().getString(R.string.enter_pw));
             return false;
         }
 
-/*        // checking the proper email format
-        if (!isEmailValid(this.email.getText().toString())) {
-            this.email.setError("Please Enter Valid Email");
+        List<User> users = userRepository.getUserByEmail(this.email.getText().toString());
+        //email presente nel db
+        if (users.isEmpty()) {
+            Log.d("LOGIN", users.toString());
+            this.email.setError(getView().getContext().getString(R.string.enter_correct_email));
             return false;
-        }*/
-
-        // checking minimum password Length
-        if (this.password.getText().length() < MIN_PASSWORD_LENGTH) {
-            this.password.setError("Password Length must be more than " + MIN_PASSWORD_LENGTH + "characters");
-            return false;
+        } else {
+            //password corretta
+            if(!this.password.getText().toString().equals(users.get(0).getPassword())){
+                this.password.setError(getView().getContext().getString(R.string.enter_correct_pw));
+                return false;
+            }
         }
-
         return true;
     }
 }
