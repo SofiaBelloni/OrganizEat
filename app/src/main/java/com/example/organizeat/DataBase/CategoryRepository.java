@@ -15,15 +15,15 @@ public class CategoryRepository {
         categoryDAO = db.categoryDAO();
     }
 
-    public List<Category> getCategories(){
-        return categoryDAO.getCategories();
+    public List<Category> getCategories(String user){
+        return categoryDAO.getCategories(user);
     }
 
-    public List<String> getCategoriesName(){
-        return categoryDAO.getCategoriesName();
+    public List<String> getCategoriesName(String user){
+        return categoryDAO.getCategoriesName(user);
     }
 
-    public List<CardItem> getRecipeByCategory(int categoryId){return categoryDAO.getRecipeByCategory(categoryId);}
+    public List<CardItem> getRecipeByCategory(int categoryId, String user){return categoryDAO.getRecipeByCategory(categoryId, user);}
 
     public void addCategory(final Category category) {
         OrganizEatDatabase.databaseWriteExecutor.execute(() -> categoryDAO.addCategory(category));

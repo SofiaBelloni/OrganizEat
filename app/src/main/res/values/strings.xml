@@ -80,5 +80,6 @@
     <string name="confirm_pw">Please Confirm Password</string>
     <string name="email_already_present">Email already present</string>
     <string name="pw_equals">Confirm-Passord must be the same</string>
+    <string name="cooking_time">Cooking time</string>
 
 </resources>

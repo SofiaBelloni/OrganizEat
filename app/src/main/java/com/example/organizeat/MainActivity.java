@@ -19,9 +19,12 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.example.organizeat.DataBase.UserRepository;
 import com.example.organizeat.ViewModel.AddViewModel;
+import com.example.organizeat.ViewModel.CategoryViewModel;
+import com.example.organizeat.ViewModel.ListViewModel;
 import com.google.android.material.navigation.NavigationView;
 
 import static com.example.organizeat.Utilities.REQUEST_IMAGE_CAPTURE;
@@ -59,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
             Utilities.insertFragment(this, new HomeFragment(), FRAGMENT_TAG);
 
         this.addViewModel = new ViewModelProvider(this).get(AddViewModel.class);
+        CategoryViewModel categoryViewModel = new ViewModelProvider( this).get(CategoryViewModel.class);
+        categoryViewModel.setUser(user);
         this.addViewModel.setUser(user);
         if (nvDrawer.getHeaderCount() > 0) {
             // avoid NPE by first checking if there is at least one Header View available

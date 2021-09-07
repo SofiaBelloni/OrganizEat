@@ -10,6 +10,7 @@ import com.example.organizeat.Category;
 import com.example.organizeat.DataBase.CategoryRepository;
 import com.example.organizeat.DataBase.ListItemRepository;
 import com.example.organizeat.ListItem;
+import com.example.organizeat.User;
 
 import java.util.List;
 
@@ -17,19 +18,24 @@ public class CategoryViewModel extends AndroidViewModel {
 
     private CategoryRepository repository;
     private Category filterCategory;
+    User user;
     public CategoryViewModel(@NonNull Application application) {
         super(application);
         //read data from db
         this.repository = new CategoryRepository(application);
     }
 
+    public void setUser(User user){this.user = user;}
+
+    public User getUser(){return this.user;}
+
     public void addCategory(Category category){ this.repository.addCategory(category);}
 
-    public boolean isUsed(Category category){ return !this.repository.getRecipeByCategory(category.getId()).isEmpty();}
+    public boolean isUsed(Category category){ return !this.repository.getRecipeByCategory(category.getId(), user.getEmail()).isEmpty();}
 
-    public List<Category> getCategories(){ return this.repository.getCategories();}
+    public List<Category> getCategories(){ return this.repository.getCategories(user.getEmail());}
 
-    public List<String> getCategoriesName(){ return this.repository.getCategoriesName();}
+    public List<String> getCategoriesName(){ return this.repository.getCategoriesName(user.getEmail());}
 
     public void updateCategory(Category category){ this.repository.updateCategory(category); }
 
@@ -39,5 +45,5 @@ public class CategoryViewModel extends AndroidViewModel {
 
     public int getFilterCategoryId(){ return this.filterCategory.getId();}
 
-    public List<CardItem> getRecipeByCategory(Category category){return this.repository.getRecipeByCategory(category.getId());}
+    public List<CardItem> getRecipeByCategory(Category category){return this.repository.getRecipeByCategory(category.getId(),user.getEmail());}
 }

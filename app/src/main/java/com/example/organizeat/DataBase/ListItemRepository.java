@@ -16,8 +16,8 @@ public class ListItemRepository {
         listItemDAO = db.listItemDAO();
     }
 
-    public List<ListItem> getListItemList(){
-        return listItemDAO.getListItems();
+    public List<ListItem> getListItemList(String user){
+        return listItemDAO.getListItems(user);
     }
 
     public void addListItem(final ListItem listItem) {

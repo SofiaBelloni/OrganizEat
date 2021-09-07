@@ -32,6 +32,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.organizeat.RecyclerView.CardAdapter;
 import com.example.organizeat.RecyclerView.OnItemListener;
+import com.example.organizeat.ViewModel.AddViewModel;
 import com.example.organizeat.ViewModel.CategoryViewModel;
 import com.example.organizeat.ViewModel.ListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -70,10 +71,10 @@ public class HomeFragment extends Fragment  implements OnItemListener {
             setRecyclerView(activity);
             FloatingActionButton floatingActionButton = view.findViewById((R.id.fab_add));
             floatingActionButton.setOnClickListener(v -> Utilities.insertFragment((AppCompatActivity) activity, new AddFragment(), "AddFragment"));
-
+            AddViewModel addViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddViewModel.class);
             this.listViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(ListViewModel.class);
             //when the list of items changed, the adapter gets the new list.
-            this.listViewModel.getCardItems().observe((LifecycleOwner) activity, cardItems -> adapter.setData(cardItems));
+            this.listViewModel.getCardItems(addViewModel.getUser().getEmail()).observe((LifecycleOwner) activity, cardItems -> adapter.setData(cardItems));
         } else {
             Log.e(LOG, "Activity is null");
         }

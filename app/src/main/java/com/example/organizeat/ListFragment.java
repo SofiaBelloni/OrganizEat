@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,12 +18,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.example.organizeat.ViewModel.AddViewModel;
-import com.example.organizeat.ViewModel.ListViewModel;
 import com.example.organizeat.ViewModel.ShoppingListViewModel;
 
 import java.util.ArrayList;
@@ -66,7 +63,7 @@ public class ListFragment extends Fragment {
             this.listViewModel = new ViewModelProvider((ViewModelStoreOwner)getActivity()).get(ShoppingListViewModel.class);
         }
 
-        items = new ArrayList<>(listViewModel.getListItems());
+        items = new ArrayList<>(listViewModel.getListItems(this.user.getEmail()));
         adapter = new ListViewAdapter(context, items);
         listView.setAdapter(adapter);
 

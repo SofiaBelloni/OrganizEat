@@ -127,7 +127,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="@string/time_for_cooking"
+                android:hint="@string/cooking_time"
                 app:endIconMode="clear_text"
                 app:errorEnabled="true"
                 app:hintTextAppearance="@style/HintTextAppearance"

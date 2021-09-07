@@ -24,7 +24,7 @@ public class ShoppingListViewModel extends AndroidViewModel {
 
     public void addListItem(ListItem item){ this.repository.addListItem(item);}
 
-    public List<ListItem> getListItems(){ return this.repository.getListItemList();}
+    public List<ListItem> getListItems(String user){ return this.repository.getListItemList(user);}
 
     public void deleteListItem(final ListItem listItem) {this.repository.deleteListItem(listItem);}
 }

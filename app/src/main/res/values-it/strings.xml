@@ -57,5 +57,15 @@
     <string name="already_have_an_account">Hai già un account?</string>
     <string name="no_account">Non hai un account?</string>
     <string name="login">Accedi</string>
+    <string name="logout">Logout</string>
+    <string name="enter_email">Inserisci email</string>
+    <string name="enter_pw">Inserisci password</string>
+    <string name="enter_correct_email">Inserisci email valida</string>
+    <string name="enter_correct_pw">Password non corretta</string>
+    <string name="enter_name">Inserisci nome utente</string>
+    <string name="confirm_pw">Conferma Password</string>
+    <string name="email_already_present">Email già presente</string>
+    <string name="pw_equals">La password confermata deve essere uguale</string>
+    <string name="cooking_time">Tempo di preparazione</string>
 
 </resources>

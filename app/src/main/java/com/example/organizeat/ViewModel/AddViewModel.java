@@ -25,7 +25,7 @@ public class AddViewModel extends AndroidViewModel {
 
     public void setUser(User user){this.user = user;}
 
-    public User getUser(){return this.user = user;}
+    public User getUser(){return this.user;}
 
     public LiveData<Bitmap> getBitMap() {
         return this.imageBitMap;

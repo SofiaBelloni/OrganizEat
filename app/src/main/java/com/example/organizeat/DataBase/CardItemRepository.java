@@ -10,18 +10,16 @@ import java.util.List;
 
 public class CardItemRepository {
     private CardItemDAO cardItemDAO;
-    private LiveData<List<CardItem>> cardItemList;
 
     public CardItemRepository(Application application) {
         OrganizEatDatabase db = OrganizEatDatabase.getDatabase(application);
         cardItemDAO = db.cardItemDAO();
-        cardItemList = cardItemDAO.getCardItems();
     }
 
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
-    public LiveData<List<CardItem>> getCardItemList(){
-        return cardItemList;
+    public LiveData<List<CardItem>> getCardItemList(String username){
+        return cardItemDAO.getCardItems(username);
     }
 
     public String getCategoryName(int id){return cardItemDAO.getCategoryName(id);}

@@ -18,8 +18,8 @@ public interface ListItemDAO {
     void addListItem(ListItem listItem);
 
     @Transaction
-    @Query("SELECT * from shoppinglist ORDER BY ID DESC")
-    List<ListItem> getListItems();
+    @Query("SELECT * from shoppinglist  WHERE shoppinglist.user = :user ORDER BY ID DESC")
+    List<ListItem> getListItems(String user);
 
     @Delete
     void deleteListItem(ListItem listItem);

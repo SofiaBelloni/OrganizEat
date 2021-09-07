@@ -22,7 +22,6 @@ public class ListViewModel extends AndroidViewModel {
     public ListViewModel(@NonNull Application application) {
         super(application);
         this.repository = new CardItemRepository(application);
-        this.cardItems = this.repository.getCardItemList();
     }
 
     public String categoryName(){return this.repository.getCategoryName(this.itemSelected.getValue().getCategory());}
@@ -40,7 +39,9 @@ public class ListViewModel extends AndroidViewModel {
         this.repository.updateCardItem(this.itemSelected.getValue());
     }
 
-    public LiveData<List<CardItem>> getCardItems(){ return this.cardItems; }
+    public LiveData<List<CardItem>> getCardItems(String username){
+        this.cardItems = this.repository.getCardItemList(username);
+        return  cardItems;}
 
     public CardItem getCardItem(int position){
         return cardItems.getValue() == null ? null : cardItems.getValue().get(position);

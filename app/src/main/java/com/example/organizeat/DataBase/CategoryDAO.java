@@ -22,16 +22,16 @@ public interface CategoryDAO {
     void addCategory(Category category);
 
     @Transaction
-    @Query("SELECT * from Category ORDER BY ID DESC")
-    List<Category> getCategories();
+    @Query("SELECT * from Category WHERE Category.user = :user ORDER BY ID DESC")
+    List<Category> getCategories(String user);
 
     @Transaction
-    @Query("SELECT category_name from Category ORDER BY ID DESC")
-    List<String> getCategoriesName();
+    @Query("SELECT category_name from Category WHERE Category.user = :user ORDER BY ID DESC")
+    List<String> getCategoriesName(String user);
 
     @Transaction
-    @Query("SELECT * from recipe WHERE recipe.category = :categoryId")
-    List<CardItem> getRecipeByCategory(int categoryId);
+    @Query("SELECT * from recipe WHERE recipe.category = :categoryId AND recipe.user = :user")
+    List<CardItem> getRecipeByCategory(int categoryId, String user);
 
     @Delete
     void deleteCategory(Category category);
