@@ -83,5 +83,7 @@
     <string name="cooking_time">Cooking time</string>
     <string name="recipe">Recipes:</string>
     <string name="categories">Categories:</string>
+    <string name="biometric_authentication">Biometric authentication</string>
+    <string name="fingerprint_error">Fingerprint not recognised</string>
 
 </resources>

@@ -67,5 +67,9 @@
     <string name="email_already_present">Email già presente</string>
     <string name="pw_equals">La password confermata deve essere uguale</string>
     <string name="cooking_time">Tempo di preparazione</string>
+    <string name="recipe">Ricette:</string>
+    <string name="categories">Categorie:</string>
+    <string name="biometric_authentication">Biometric authentication</string>
+    <string name="fingerprint_error">Impronta non riconosciuta</string>
 
 </resources>

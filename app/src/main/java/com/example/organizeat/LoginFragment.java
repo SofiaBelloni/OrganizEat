@@ -9,15 +9,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricPrompt;
 import androidx.fragment.app.Fragment;
 
 import com.example.organizeat.DataBase.UserRepository;
 
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class LoginFragment extends Fragment {
 
@@ -45,17 +50,45 @@ public class LoginFragment extends Fragment {
             Button signup = view.findViewById((R.id.signup));
             signup.setOnClickListener(v -> Utilities.insertFragment((AppCompatActivity) activity, new SignUpFragment(), "SignUpFragment"));
 
-            view.findViewById(R.id.btnLogin).setOnClickListener(v -> {
-                if (validateInput()) {
-                    //login
-                    Intent intent = new Intent(activity, MainActivity.class);
-                    intent.putExtra("user", this.email.getText().toString());
-                    startActivity(intent);
-                }
-            });
         } else {
             Log.e(LOG, "Activity is null");
         }
+        Executor newExecutor = Executors.newSingleThreadExecutor();
+        //Start listening for authentication events//
+        final BiometricPrompt myBiometricPrompt = new BiometricPrompt(getActivity(), newExecutor, new BiometricPrompt.AuthenticationCallback() {
+
+            //onAuthenticationSucceeded is called when a fingerprint is matched successfully//
+            @Override
+            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded(result);
+                //Print a message to Logcat//
+                UserRepository userRepository = new UserRepository(getActivity().getApplication());
+                List<User> user = userRepository.getUserByEmail(email.getText().toString());
+                if(!user.isEmpty()){
+                    Intent intent = new Intent(activity, MainActivity.class);
+                    intent.putExtra("user", user.get(0).getEmail());
+                    startActivity(intent);
+                }
+            }
+        });
+
+        //Create the BiometricPrompt instance//
+        final BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle(view.getContext().getString(R.string.biometric_authentication))
+                .setNegativeButtonText("Cancel")
+                .build();//Build the dialog//
+
+        view.findViewById(R.id.btnLogin).setOnClickListener(v -> {
+            if(this.email.getText().toString().length() > 0 && this.password.getText().toString().equals("")){
+                myBiometricPrompt.authenticate(promptInfo);
+            } else if (validateInput()) {
+                //login
+                Intent intent = new Intent(activity, MainActivity.class);
+                intent.putExtra("user", this.email.getText().toString());
+                startActivity(intent);
+            }
+        });
+
     }
 
     // Checking if the input is valid
@@ -89,4 +122,5 @@ public class LoginFragment extends Fragment {
         }
         return true;
     }
+
 }
