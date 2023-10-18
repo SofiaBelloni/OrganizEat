@@ -1,4 +1,4 @@
-# OrganizEat_progetto-mobile
+# OrganizEat
 PROGETTO DI PROGRAMMAZIONE DI SISTEMI MOBILE
 
 A.A. 2020/2021
